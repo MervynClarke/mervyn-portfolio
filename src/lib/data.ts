@@ -187,6 +187,7 @@ export interface Project {
   category: string;
   pdfUrl?: string;
   link?: string;
+  caseStudyUrl?: string;
 }
 
 export const PROJECTS: Project[] = [
@@ -202,6 +203,7 @@ export const PROJECTS: Project[] = [
     stack: ["Alteryx Designer", "Python", "SQL", "Copilot"],
     category: "Automation · AI · Tax Research",
     link: "/projects/ai-content-testing",
+    caseStudyUrl: "/case-study/ai-content-testing",
   },
 
   {
@@ -263,7 +265,8 @@ export const PROJECTS: Project[] = [
       "Recovered $330,000+ in erroneous tax charges. Reduced manual intervention and cycle time for tax corrections. Influenced future tax automation initiatives leveraging Vertex Batch Client Interface (BCI) and Alteryx. Demonstrated the strategic value of tax automation to leadership and stakeholders.",
     stack: ["Vertex O Series", "Batch Client Interface", "Tax Automation"],
     category: "Tax Automation · Financial Recovery · Process Engineering",
-    pdfUrl: "C:\\Users\\Mervyn.Clarke\\OneDrive - Vertex, Inc\\Documents\\mervyn-portfolio\\Case_Study_330K_Tax_Reversal.pdf",
+    pdfUrl: "/Case_Study_330K_Tax_Reversal.pdf",
+    caseStudyUrl: "/case-study/330k-tax-reversal",
   },
 ];
 

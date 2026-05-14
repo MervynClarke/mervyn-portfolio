@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "@/hooks/useInView";
 import SectionHeading from "./SectionHeading";
 import { PROJECTS } from "@/lib/data";
+import Link from "next/link";
 
 const ease = [0.25, 0.1, 0.25, 1];
 
@@ -110,7 +111,27 @@ function ProjectCard({
                     <span>Download Case Study</span>
                   </a>
                 </div>
+                )}
+
+              {/* Full Case Study Page */}
+              {project.caseStudyUrl && (
+                <div className="mt-3">
+                  <Link
+                    href={project.caseStudyUrl}
+                    className="inline-flex items-center gap-2 text-sm font-medium text-tea-amber dark:text-tea-amber-light
+                              hover:underline transition-colors"
+                  >
+                    <span>🔍</span>
+                    <span>View Full Case Study</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                  </Link>
+                </div>
               )}
+
+              
             </motion.div>
           )}
         </AnimatePresence>
