@@ -64,7 +64,7 @@ export default function Navbar() {
             className="font-display text-2xl font-bold text-tea-amber dark:text-tea-amber-light
                        hover:opacity-80 transition-opacity"
           >
-            MC
+            Mervyn Clarke Jr.
           </button>
 
           <div className="hidden md:flex items-center gap-1">

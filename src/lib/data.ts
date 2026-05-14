@@ -22,24 +22,24 @@ export const STATS: Stat[] = [
   { display: "10+", label: "Years in Tax Tech", numericValue: 10, suffix: "+" },
   {
     display: "$330K+",
-    label: "Tax Recovered via Automation",
+    label: "Highest Tax Recovered via Automation",
     numericValue: 330,
     prefix: "$",
     suffix: "K+",
   },
   {
     display: "2,000+",
-    label: "Categories Maintained",
+    label: "Taxability Categories Maintained",
     numericValue: 2000,
     suffix: "+",
   },
   { display: "60+", label: "Docs \u2192 1 AI Agent", numericValue: 60, suffix: "+" },
   {
-    display: "$1M+",
-    label: "Community Refunds (VITA)",
-    numericValue: 1,
-    prefix: "$",
-    suffix: "M+",
+    display: "10,000+",
+    label: "Hours Saved via Automation",
+    numericValue: 10000,
+    prefix: "",
+    suffix: "Hrs",
   },
 ];
 
@@ -207,7 +207,7 @@ export const PROJECTS: Project[] = [
   },
 
   {
-    title: "VVC International Compliance Test Case Automation",
+    title: "International Compliance Test Case Automation",
     emoji: "\uD83C\uDF0D",
     problem:
       "International VAT compliance (VVC) requires scalable validation across multiple jurisdictions with frequent regulatory change.",
@@ -218,6 +218,22 @@ export const PROJECTS: Project[] = [
     stack: ["Alteryx", "Python", "SQL", "AI-Assisted Validation"],
     category: "International Compliance · Automation",
   },
+
+  {
+    title: "Alabama Category Reconciliation Automation",
+    emoji: "⚡",
+    problem:
+      "Reconciling Alabama's Farm and Manufacturing tax categories against state-provided rate sheets required manually reviewing 700+ jurisdictions — a process that took 20 hours per cycle to identify issues and was error-prone at scale.",
+    approach:
+      "Built Alteryx workflows that ingest Vertex's All Rules Report and Alabama's state rate sheet, programmatically compare rates across every jurisdiction, and output categorized exception reports — Missing Jurisdictions, Incorrect Rates, and Conditional Jurisdictions — ready for analyst review.",
+    impact:
+      "Reduced reconciliation time from 20 hours a month to under 1 minute a month. Scaled across multiple phases of Alabama Manufacturing and Farming cleanup covering 800+ rules and dozens of categories. Improved accuracy and gave analysts confidence in rate integrity before customer-facing releases.",
+    stack: ["Alteryx Designer", "Web Scraping", "Excel/CSV I/O", "Tax Rate Analysis"],
+    category: "Process Automation · Tax Reconciliation · Data Engineering",
+    pdfUrl: "",
+    caseStudyUrl: "/case-study/alabama-reconciliation",
+  },
+
   {
     title: "Power BI Dashboards for Tax Research Leadership",
     emoji: "\uD83D\uDCCA",
@@ -230,6 +246,7 @@ export const PROJECTS: Project[] = [
     stack: ["Power BI", "Power Query", "Alteryx", "SharePoint"],
     category: "BI \u00b7 Executive Reporting",
   },
+
   {
     title: "Copilot & AI Agent Enablement",
     emoji: "\uD83E\uDDE0",
@@ -242,18 +259,7 @@ export const PROJECTS: Project[] = [
     stack: ["Copilot Studio", "Power Automate", "SharePoint", "Microsoft 365"],
     category: "AI Agents \u00b7 Knowledge Management",
   },
-  {
-    title: "Jira Jurisdiction Data Transformation for Power BI",
-    emoji: "\uD83D\uDCC8",
-    problem:
-      "Tax Research Directors needed visibility into jurisdiction maintenance activity tracked in Jira, but raw data was unstructured and not analytics-ready.",
-    approach:
-      "Built an Alteryx workflow to transform Jira data, enrich it with jurisdiction metadata, and deliver to Power BI for interactive reporting. Fully documented with workflow standards.",
-    impact:
-      "Delivered metrics dashboard to Tax Research Directors. Enabled data-driven jurisdiction maintenance decisions.",
-    stack: ["Alteryx Designer", "Jira API", "Power BI", "Python"],
-    category: "Data Engineering \u00b7 Reporting",
-  },
+  
   {
     title: "$330K Tax Reversal Automation",
     emoji: "\uD83D\uDCB0",
@@ -493,6 +499,6 @@ export const THREE_CUPS = [
     emoji: "\uD83C\uDF75",
     title: "The Human",
     subtitle: "Father of Three \u00b7 Tea Lover \u00b7 Gardener \u00b7 Nittany Lion",
-    detail: "\u201CAlways happy to answer questions\u201D",
+    detail: "\u201CPowered by loose leaf tea and curiosity\u201D",
   },
 ] as const;
