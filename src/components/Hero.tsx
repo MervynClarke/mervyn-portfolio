@@ -18,7 +18,7 @@ const wordVariants = {
 };
 
 export default function Hero() {
-  const headlineWords = ["Proud", "Father", "First.", "Data", "Craftsman", "Always."];
+  const headlineWords = ["Home", "is", "Where", "the", "Work", "Is"];
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-20 pb-12 overflow-hidden">
@@ -62,7 +62,7 @@ export default function Hero() {
               initial="hidden"
               animate="visible"
               className={`text-5xl md:text-7xl font-bold ${
-                i < 3
+                i < 4
                   ? "text-charcoal dark:text-ceramic-white"
                   : "text-tea-amber dark:text-tea-amber-light"
               }`}
@@ -72,6 +72,15 @@ export default function Hero() {
           ))}
         </span>
       </h1>
+
+<motion.p
+  className="mt-4 text-lg md:text-2xl font-display text-tea-amber dark:text-tea-amber-light tracking-wider"
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ delay: 1.1, duration: 0.7, ease }}
+>
+  Proud Father &middot; Remote Data Craftsman &middot; AI Explorer
+</motion.p>
 
       <motion.div
         className="text-center mt-6 space-y-2"
