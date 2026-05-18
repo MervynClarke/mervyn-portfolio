@@ -2,10 +2,14 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePathname, useRouter } from "next/navigation";
 import { NAV_LINKS } from "@/lib/data";
 import ThemeToggle from "./ThemeToggle";
 
 export default function Navbar() {
+  const router = useRouter();
+  const pathname = usePathname();
+
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
@@ -16,37 +20,61 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Only observe sections on the homepage. On subpages the elements don't exist.
   useEffect(() => {
+    if (pathname !== "/") {
+      setActiveSection("");
+      return;
+    }
+
     const sectionIds = NAV_LINKS.map((l) => l.href.replace("#", ""));
     const observers: IntersectionObserver[] = [];
 
     sectionIds.forEach((id) => {
       const el = document.getElementById(id);
       if (!el) return;
+
       const obs = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) setActiveSection(id);
         },
         { threshold: 0.3, rootMargin: "-80px 0px -50% 0px" }
       );
+
       obs.observe(el);
       observers.push(obs);
     });
 
     return () => observers.forEach((o) => o.disconnect());
-  }, []);
+  }, [pathname]);
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [mobileOpen]);
 
-  const handleNavClick = (href: string) => {
-    setMobileOpen(false);
+  const scrollToHash = (href: string) => {
     const el = document.querySelector(href);
     if (el) {
       el.scrollIntoView({ behavior: "smooth" });
+      return true;
     }
+    return false;
+  };
+
+  const handleNavClick = (href: string) => {
+    setMobileOpen(false);
+
+    // If you're not on the homepage, navigate home with the hash.
+    if (pathname !== "/") {
+      router.push(`/${href}`);
+      return;
+    }
+
+    // If you're on the homepage, smooth-scroll.
+    scrollToHash(href);
   };
 
   return (
@@ -70,7 +98,8 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-1">
             {NAV_LINKS.map((link) => {
               const sectionId = link.href.replace("#", "");
-              const isActive = activeSection === sectionId;
+              const isActive = pathname === "/" && activeSection === sectionId;
+
               return (
                 <button
                   key={link.href}
@@ -85,8 +114,17 @@ export default function Navbar() {
                 </button>
               );
             })}
-            <div className="ml-2">
+
+            <div className="ml-2 flex items-center gap-3">
               <ThemeToggle />
+
+              <a
+                href="mailto:mervclarke21@gmail.com"
+                className="text-sm font-sans text-tea-amber dark:text-tea-amber-light
+                          hover:underline transition"
+              >
+                Say Hello
+              </a>
             </div>
           </div>
 

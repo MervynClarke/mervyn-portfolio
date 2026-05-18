@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import TeaSteam from "./TeaSteam";
 import { THREE_CUPS, STATS } from "@/lib/data";
 import CountUp from "./CountUp";
+import Link from "next/link";
 
 const ease = [0.25, 0.1, 0.25, 1];
 
@@ -96,7 +97,7 @@ export default function Hero() {
         </p>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 max-w-4xl w-full">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-16 max-w-4xl w-full">
         {THREE_CUPS.map((cup, i) => (
           <motion.div
             key={cup.title}
@@ -117,11 +118,26 @@ export default function Hero() {
             </p>
             <p className="mt-3 text-sm font-sans text-charcoal/70 dark:text-ceramic-white/60 leading-relaxed">
               {cup.detail}
+            
             </p>
+            
+            <p className="text-bamboo-light/70 mt-3">
+              {cup.detail}{" "}
+
+              {cup.title === "The Researcher" && (
+                <Link
+                  href="/research-desk"
+                  className="text-tea-amber hover:underline ml-1 transition-colors"
+                >
+                  → Explore the Research Desk
+                </Link>
+              )}
+            </p>
+
           </motion.div>
         ))}
       </div>
-
+        
       <div className="mt-20 w-full max-w-5xl">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
           {STATS.map((stat) => (

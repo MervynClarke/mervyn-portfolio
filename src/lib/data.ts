@@ -496,9 +496,15 @@ export const THREE_CUPS = [
       "Turning legacy processes into governed, repeatable automation",
   },
   {
+    emoji: "🧭",
+    title: "The Researcher",
+    subtitle: "Tax Law \u00b7 AI for Tax",
+    detail: "10+ years of tax research, 4+ years of AI research",
+  },
+  {
     emoji: "\uD83C\uDF75",
     title: "The Human",
-    subtitle: "Father of Three \u00b7 Tea Lover \u00b7 Gardener \u00b7 Nittany Lion",
+    subtitle: "Father of Three \u00b7 Tea Lover \u00b7 Gardener",
     detail: "\u201CPowered by loose leaf tea and curiosity\u201D",
-  },
+  },   
 ] as const;
