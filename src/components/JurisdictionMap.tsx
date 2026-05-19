@@ -187,7 +187,7 @@ function JurisdictionMap() {
             style={{ width: "100%", height: "auto" }}
           >
             <Geographies geography={US_TOPO}>
-              {({ geographies }) =>
+              {({ geographies }: { geographies: any[] }) =>
                 geographies.map((geo) => {
                   const rawName: string =
                     geo.properties.name || geo.properties.NAME || "";
