@@ -16,37 +16,47 @@ import {
   type ActivityLevel,
 } from "@/lib/research-data";
 
-/* ── Topology URL ─────────────────────────────────────────── */
 const US_TOPO = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json";
 
-/* ── Color palette (dark forest-green theme) ──────────────── */
 const FILL: Record<ActivityLevel, string> = {
-  hottest: "#C4883A",   // tea-amber — bright gold
-  high: "#8B5E3C",      // clay-warm — warm brown
-  standard: "#3d6b5e",  // muted sage — blends with bg
+  hottest: "#C4883A",
+  high: "#8B5E3C",
+  standard: "#3d6b5e",
 };
-const FILL_HOVER: Record<ActivityLevel, string> = {
-  hottest: "#D4A04A",   // lighter amber
-  high: "#A07048",      // lighter clay
-  standard: "#4E8070",  // lighter sage
-};
-const STROKE_DEFAULT = "#1a2f2a";   // matches page bg
-const STROKE_HOVER = "#C4883A";     // amber highlight
 
-/* ── Name → data lookup ──────────────────────────────────── */
+const FILL_HOVER: Record<ActivityLevel, string> = {
+  hottest: "#D4A04A",
+  high: "#A07048",
+  standard: "#4E8070",
+};
+
+const STROKE_DEFAULT = "#1a2f2a";
+const STROKE_HOVER = "#C4883A";
+
 const usLookupByName = new Map<string, JurisdictionData>();
 US_JURISDICTIONS.forEach((j) => usLookupByName.set(j.name, j));
 
-/* ── Tooltip State ────────────────────────────────────────── */
 interface TooltipState {
   x: number;
   y: number;
   name: string;
   note: string;
+  tooltipLines?: string[];
   level: ActivityLevel;
 }
 
-/* ── Legend ────────────────────────────────────────────────── */
+interface GeographyFeature {
+  rsmKey: string;
+  properties: {
+    name?: string;
+    NAME?: string;
+  };
+}
+
+interface GeographiesRenderArgs {
+  geographies: GeographyFeature[];
+}
+
 function Legend() {
   return (
     <div className="flex justify-center gap-6 mb-6 flex-wrap">
@@ -72,7 +82,6 @@ function Legend() {
   );
 }
 
-/* ── Badge Row (reusable for territories + Canada) ────────── */
 function BadgeRow({
   items,
   label,
@@ -88,43 +97,52 @@ function BadgeRow({
         {label}
       </p>
       <div className="flex justify-center gap-2.5 flex-wrap">
-        {items.map((t) => (
+        {items.map((item) => (
           <div
-            key={t.abbr}
+            key={item.abbr}
             className="relative"
-            onMouseEnter={() => setHovered(t)}
+            onMouseEnter={() => setHovered(item)}
             onMouseLeave={() => setHovered(null)}
           >
             <div
-              className="px-3 py-1.5 rounded-full text-xs font-bold tracking-wide cursor-pointer
-                          transition-all duration-200 hover:scale-105 hover:shadow-lg"
+              className="px-3 py-1.5 rounded-full text-xs font-bold tracking-wide cursor-pointer transition-all duration-200 hover:scale-105 hover:shadow-lg"
               style={{
-                backgroundColor: FILL[t.level],
-                color: t.level === "standard" ? "#D4C9A8" : "#FAF7F2",
+                backgroundColor: FILL[item.level],
+                color: item.level === "standard" ? "#D4C9A8" : "#FAF7F2",
                 border: "1px solid rgba(255,255,255,0.1)",
               }}
             >
-              {t.abbr}
+              {item.abbr}
             </div>
+
             <AnimatePresence>
-              {hovered?.abbr === t.abbr && (
+              {hovered?.abbr === item.abbr && (
                 <motion.div
                   initial={{ opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 6 }}
-                  className="absolute z-50 bottom-full left-1/2 -translate-x-1/2 mb-2
-                              w-60 p-3 rounded-lg shadow-xl
-                              bg-[#0f1f1b] border border-[#C4883A]/30
-                              text-[#FAF7F2] text-xs leading-relaxed pointer-events-none"
+                  className="absolute z-50 bottom-full left-1/2 -translate-x-1/2 mb-2 w-72 p-4 rounded-lg shadow-xl bg-[#0f1f1b] border border-[#C4883A]/30 text-[#FAF7F2] text-xs leading-relaxed pointer-events-none"
                 >
-                  <div className="flex items-center gap-2 mb-1">
+                  <div className="flex items-center gap-2 mb-2">
                     <div
                       className="w-2.5 h-2.5 rounded-full flex-shrink-0"
-                      style={{ backgroundColor: FILL[t.level] }}
+                      style={{ backgroundColor: FILL[item.level] }}
                     />
-                    <p className="font-display font-bold text-sm">{t.name}</p>
+                    <p className="font-display font-bold text-sm">{item.name}</p>
                   </div>
-                  <p className="text-[#D4C9A8]/90">{t.note}</p>
+
+                  <p className="text-[#D4C9A8]/90 mb-2">{item.note}</p>
+
+                  {Array.isArray(item.tooltipLines) && item.tooltipLines.length > 0 && (
+                    <ul className="space-y-1 text-[#D4C9A8]/80">
+                      {item.tooltipLines.map((line) => (
+                        <li key={line} className="flex gap-2">
+                          <span className="text-[#C4883A]">•</span>
+                          <span>{line}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </motion.div>
               )}
             </AnimatePresence>
@@ -135,25 +153,24 @@ function BadgeRow({
   );
 }
 
-/* ═══════════════════════════════════════════════════════════
-   MAIN MAP COMPONENT
-   ═══════════════════════════════════════════════════════════ */
 function JurisdictionMap() {
   const [tooltip, setTooltip] = useState<TooltipState | null>(null);
 
   const handleMouseEnter = useCallback(
-    (geo: any, evt?: React.MouseEvent) => {
-      const rawName: string = geo.properties.name || geo.properties.NAME || "";
+    (geo: GeographyFeature, evt?: React.MouseEvent<SVGPathElement>) => {
+      const rawName = geo.properties.name || geo.properties.NAME || "";
       const data = usLookupByName.get(rawName);
       if (data && evt) {
-        const rect = (evt.currentTarget as HTMLElement)
+        const rect = (evt.currentTarget as SVGPathElement)
           .closest("svg")
           ?.getBoundingClientRect();
+
         setTooltip({
           x: evt.clientX - (rect?.left || 0),
           y: evt.clientY - (rect?.top || 0) - 12,
           name: data.name,
           note: data.note,
+          tooltipLines: data.tooltipLines,
           level: data.level,
         });
       }
@@ -167,11 +184,11 @@ function JurisdictionMap() {
     <div>
       <Legend />
 
-      {/* ── US Map ──────────────────────────────────────── */}
       <div>
         <p className="text-xs font-bold uppercase tracking-widest text-[#C4883A] mb-3 text-center">
           United States
         </p>
+
         <div
           className="relative rounded-2xl overflow-hidden shadow-2xl"
           style={{
@@ -187,10 +204,9 @@ function JurisdictionMap() {
             style={{ width: "100%", height: "auto" }}
           >
             <Geographies geography={US_TOPO}>
-              {({ geographies }: { geographies: any[] }) =>
+              {({ geographies }: GeographiesRenderArgs) =>
                 geographies.map((geo) => {
-                  const rawName: string =
-                    geo.properties.name || geo.properties.NAME || "";
+                  const rawName = geo.properties.name || geo.properties.NAME || "";
                   const data = usLookupByName.get(rawName);
                   const level: ActivityLevel = data?.level || "standard";
 
@@ -198,9 +214,7 @@ function JurisdictionMap() {
                     <Geography
                       key={geo.rsmKey}
                       geography={geo}
-                      onMouseEnter={(evt: any) =>
-                        handleMouseEnter(geo, evt)
-                      }
+                      onMouseEnter={(evt: React.MouseEvent<SVGPathElement>) => handleMouseEnter(geo, evt)}
                       onMouseLeave={handleMouseLeave}
                       style={{
                         default: {
@@ -231,37 +245,43 @@ function JurisdictionMap() {
             </Geographies>
           </ComposableMap>
 
-          {/* Tooltip overlay */}
           <AnimatePresence>
             {tooltip && (
               <motion.div
                 initial={{ opacity: 0, y: 6 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
-                className="absolute z-50 w-64 p-3 rounded-lg shadow-xl
-                            bg-[#0f1f1b] border border-[#C4883A]/30
-                            text-[#FAF7F2] text-xs leading-relaxed pointer-events-none"
-                style={{ left: tooltip.x - 128, top: tooltip.y - 70 }}
+                className="absolute z-50 w-72 p-4 rounded-lg shadow-xl bg-[#0f1f1b] border border-[#C4883A]/30 text-[#FAF7F2] text-xs leading-relaxed pointer-events-none"
+                style={{ left: tooltip.x - 144, top: tooltip.y - 90 }}
               >
-                <div className="flex items-center gap-2 mb-1">
+                <div className="flex items-center gap-2 mb-2">
                   <div
                     className="w-2.5 h-2.5 rounded-full"
                     style={{ backgroundColor: FILL[tooltip.level] }}
                   />
                   <p className="font-display font-bold text-sm">{tooltip.name}</p>
                 </div>
-                <p className="text-[#D4C9A8]/90">{tooltip.note}</p>
+
+                <p className="text-[#D4C9A8]/90 mb-2">{tooltip.note}</p>
+
+                {Array.isArray(tooltip.tooltipLines) && tooltip.tooltipLines.length > 0 && (
+                  <ul className="space-y-1 text-[#D4C9A8]/80">
+                    {tooltip.tooltipLines.map((line) => (
+                      <li key={line} className="flex gap-2">
+                        <span className="text-[#C4883A]">•</span>
+                        <span>{line}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </motion.div>
             )}
           </AnimatePresence>
         </div>
       </div>
 
-      {/* ── Territory Badges ────────────────────────────── */}
       <BadgeRow items={US_TERRITORIES} label="U.S. Territories" />
-
-      {/* ── Canada Province Badges ──────────────────────── */}
-      <BadgeRow items={CA_JURISDICTIONS} label={"\uD83C\uDDE8\uD83C\uDDE6 Canada \u2014 Provinces & Territories"} />
+      <BadgeRow items={CA_JURISDICTIONS} label="🇨🇦 Canada — Provinces & Territories" />
     </div>
   );
 }

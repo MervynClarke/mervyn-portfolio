@@ -6,57 +6,249 @@ export interface JurisdictionData {
   abbr: string;
   name: string;
   level: ActivityLevel;
+  tooltipLines?: string[];
   note: string;
 }
 
 export const US_JURISDICTIONS: JurisdictionData[] = [
-  { abbr:"AL", name:"Alabama",              level:"high",     note:"MFG reduced rates, Tuscaloosa police jurisdiction CJs, ECW cert" },
-  { abbr:"AK", name:"Alaska",               level:"standard", note:"Sales tax research – municipal tax structures" },
-  { abbr:"AZ", name:"Arizona",              level:"high",     note:"TPT research, PTE tax, Graham County assessor outreach" },
-  { abbr:"AR", name:"Arkansas",             level:"standard", note:"Unemployment benefit exemptions, farmer ID cards" },
-  { abbr:"CA", name:"California",           level:"hottest",  note:"FTB TAMs removal, digital streaming tax, Prop 39, film tax credits" },
-  { abbr:"CO", name:"Colorado",             level:"hottest",  note:"15+ home-rule cities, DR1002 rate automation, exemption cert mapping" },
-  { abbr:"CT", name:"Connecticut",          level:"high",     note:"Certificate number format changes (10→12 digits), R&D credits" },
+  
+  {
+    abbr: "AL",
+    name: "Alabama",
+    level: "high",
+    note: "Manufacturing, filing codes, leasing, and reconciliation work",
+    tooltipLines: [
+      "Manufacturing & farm tax rule development",
+      "Filing code design for auto, farming, food, and medical categories",
+      "Leasing and local tax issue resolution",
+      "Monthly reconciliation & Alteryx automation tooling",
+    ],
+  },
+  { abbr: "AK", name: "Alaska", level: "standard", note: "Municipal tax structures and exemptions" },
+
+  {
+    abbr: "AZ",
+    name: "Arizona",
+    level: "high",
+    note: "Local tax staging and Native American exemption research",
+    tooltipLines: [
+      "Native American exemption and reason code research",
+      "Tucson and local jurisdiction tax staging",
+      "Heavy equipment and property tax analysis",
+      "County + reservation rule validation",
+    ],
+  },
+
+  { abbr: "AR", name: "Arkansas", level: "standard", note: "Exemption rules and ID card validation" },
+
+  { abbr: "CA", name: "California", level: "hottest", note: "Streaming tax, credits, and major legislative tracking" },
+
+  {
+    abbr: "CO",
+    name: "Colorado",
+    level: "hottest",
+    note: "Home-rule city research and exemption mapping",
+    tooltipLines: [
+      "15+ home-rule city tax rule validation",
+      "State vs local exemption certificate mapping",
+      "Municipality outreach for rule confirmation",
+      "Local tax configuration + testing",
+    ],
+  },
+
+  {
+    abbr: "CT",
+    name: "Connecticut",
+    level: "high",
+    note: "Certificate validation and taxability support",
+    tooltipLines: [
+      "Certificate format change (10 → 12 digits)",
+      "Taxability rule validation and support",
+      "Customer escalation investigation",
+    ],
+  },
+
+  {
+    abbr: "FL",
+    name: "Florida",
+    level: "high",
+    note: "Lodging, tourism, and local tax rate research",
+    tooltipLines: [
+      "Walton County and Franklin County tourism taxes",
+      "Transient accommodation tax research",
+      "Defuniak Springs and Tampa tax issues",
+      "Local rate validation and missing tax fixes",
+    ],
+  },
+
+  { abbr: "GA", name: "Georgia", level: "standard", note: "Conformity and legislative tracking" },
+
+  {
+    abbr: "IL",
+    name: "Illinois",
+    level: "hottest",
+    note: "Leasing law changes and accommodations tax",
+    tooltipLines: [
+      "Leasing tax law changes (2025)",
+      "Accommodation and hospitality tax work",
+      "Gross receipts handling and rule definition",
+    ],
+  },
+
+  {
+    abbr: "LA",
+    name: "Louisiana",
+    level: "hottest",
+    note: "Remote seller and software tax analysis",
+    tooltipLines: [
+      "Remote seller rule interpretation",
+      "Software taxability (§47:301)",
+      "Local jurisdiction reporting complexity",
+    ],
+  },
+
+  {
+    abbr: "MO",
+    name: "Missouri",
+    level: "high",
+    note: "Lodging, filing categories, and rate validation",
+    tooltipLines: [
+      "Lodging tax filing category gaps",
+      "Wentzville and Liberty rate updates",
+      "Local tax issue investigation",
+    ],
+  },
+
+  {
+    abbr: "NY",
+    name: "New York",
+    level: "high",
+    note: "Digital products, occupancy, and franchise tax",
+    tooltipLines: [
+      "Digital goods taxability research",
+      "Occupancy and lodging rules",
+      "Franchise and special category taxes",
+    ],
+  },
+
+  {
+    abbr: "OH",
+    name: "Ohio",
+    level: "high",
+    note: "Fuel tax and taxability matrix interpretation",
+    tooltipLines: [
+      "Excise vs sales tax clarification",
+      "Taxability matrix troubleshooting",
+      "Customer-facing documentation",
+    ],
+  },
+
+  {
+    abbr: "PA",
+    name: "Pennsylvania",
+    level: "high",
+    note: "Property tax, returns, and HQ-state research",
+    tooltipLines: [
+      "Property tax and rebate analysis",
+      "Philadelphia returns processing",
+      "HQ state research and validation",
+    ],
+  },
+
+  {
+    abbr: "TN",
+    name: "Tennessee",
+    level: "high",
+    note: "Lodging, occupancy, and lease tier taxation",
+    tooltipLines: [
+      "County lodging and occupancy taxes",
+      "Lease tier tax structures",
+      "Single article tax research",
+      "Local jurisdiction issue resolution",
+    ],
+  },
+
+  {
+    abbr: "TX",
+    name: "Texas",
+    level: "high",
+    note: "Remote seller rules and local tax complexity",
+    tooltipLines: [
+      "Remote seller tax line analysis",
+      "Local jurisdiction coverage",
+      "Category-level tax interpretation",
+    ],
+  },
+
+  {
+    abbr: "UT",
+    name: "Utah",
+    level: "high",
+    note: "Hospitality tax and rule implementation",
+    tooltipLines: [
+      "CVMA hospitality tax implementation",
+      "Qualifying condition design",
+      "Rule deployment into production",
+    ],
+  },
+
+  {
+    abbr: "VA",
+    name: "Virginia",
+    level: "high",
+    note: "Short-term rental and locality rules",
+    tooltipLines: [
+      "Short-term rental tax modeling",
+      "Local jurisdiction research",
+      "Template-driven rollout",
+    ],
+  },
+
+  {
+    abbr: "WA",
+    name: "Washington",
+    level: "hottest",
+    note: "Recurring work across locals, categories, and filings",
+    tooltipLines: [
+      "Reason codes and filing category design",
+      "Spirits and local utility taxes",
+      "Frequent local jurisdiction support",
+      "Waste removal tax research across 15+ locals",
+    ],
+  },
+
+  // --- keep remaining states unchanged (no tooltipLines yet) ---
+
+
+
+
   { abbr:"DE", name:"Delaware",             level:"standard", note:"Hazardous substance cleanup tax" },
-  { abbr:"FL", name:"Florida",              level:"high",     note:"Lake Nona district, scholarship tax credits, Seminole compact" },
-  { abbr:"GA", name:"Georgia",              level:"standard", note:"IRC conformity, Hurricane Helene TREES Act" },
   { abbr:"HI", name:"Hawaii",               level:"high",     note:"GET research, 0.5% import/use tax, wholesale resale certs" },
   { abbr:"ID", name:"Idaho",                level:"standard", note:"Rate updates & nexus research" },
-  { abbr:"IL", name:"Illinois",             level:"hottest",  note:"1/1/25 leasing law changes, accommodations tax, gross receipts" },
   { abbr:"IN", name:"Indiana",              level:"standard", note:"Cigarette/tobacco tax increases, amnesty programs" },
   { abbr:"IA", name:"Iowa",                 level:"standard", note:"Rate change tracking" },
   { abbr:"KS", name:"Kansas",               level:"standard", note:"Privilege tax research, IRC conformity" },
   { abbr:"KY", name:"Kentucky",             level:"high",     note:"DME taxability, braces/supports determination" },
-  { abbr:"LA", name:"Louisiana",            level:"hottest",  note:"Remote seller rules, custom software (§47:301), centralized returns" },
   { abbr:"ME", name:"Maine",                level:"standard", note:"Sales tax exemption research" },
   { abbr:"MD", name:"Maryland",             level:"standard", note:"Digital advertising tax litigation monitoring" },
   { abbr:"MA", name:"Massachusetts",        level:"high",     note:"Discounts >50% rule, parking tax, promotional items" },
   { abbr:"MI", name:"Michigan",             level:"standard", note:"Corporate tax rate changes, fuel prepaid rates" },
   { abbr:"MN", name:"Minnesota",            level:"standard", note:"Cannabis tax, prepaid fuel rates, property tax changes" },
   { abbr:"MS", name:"Mississippi",          level:"standard", note:"Seller permit research, MTC certificate" },
-  { abbr:"MO", name:"Missouri",             level:"high",     note:"DOR outreach – agricultural exemption, Form 149 resubmission" },
   { abbr:"MT", name:"Montana",              level:"standard", note:"Local parallel testing, parent category determination fixes" },
   { abbr:"NE", name:"Nebraska",             level:"high",     note:"New district CJs, GLD testing, remote seller lines" },
   { abbr:"NV", name:"Nevada",               level:"standard", note:"Commerce tax & gaming tax research" },
   { abbr:"NH", name:"New Hampshire",        level:"standard", note:"No general sales tax – business tax research" },
   { abbr:"NJ", name:"New Jersey",           level:"high",     note:"ECM form resubmissions, convenience of employer rules" },
   { abbr:"NM", name:"New Mexico",           level:"standard", note:"GRT research, Easy Enrollment program" },
-  { abbr:"NY", name:"New York",             level:"high",     note:"Casino tax, digital products, franchise tax, occupancy taxes" },
   { abbr:"NC", name:"North Carolina",       level:"standard", note:"Rate research & exemptions" },
   { abbr:"ND", name:"North Dakota",         level:"standard", note:"Rate change monitoring" },
-  { abbr:"OH", name:"Ohio",                 level:"high",     note:"Fuels taxability (excise vs. sales), tire recycling fees" },
   { abbr:"OK", name:"Oklahoma",             level:"standard", note:"Grocery exemption amendments" },
   { abbr:"OR", name:"Oregon",               level:"standard", note:"CAT research, cross-border situs" },
-  { abbr:"PA", name:"Pennsylvania",         level:"high",     note:"Property tax rebates, Philadelphia returns, HQ state research" },
   { abbr:"RI", name:"Rhode Island",         level:"standard", note:"Rate monitoring" },
   { abbr:"SC", name:"South Carolina",       level:"standard", note:"Rate monitoring" },
   { abbr:"SD", name:"South Dakota",         level:"standard", note:"Wayfair nexus, rate monitoring" },
-  { abbr:"TN", name:"Tennessee",            level:"high",     note:"DOR outreach – energy fuel determination (charcoal, wood pellets)" },
-  { abbr:"TX", name:"Texas",                level:"high",     note:"Remote seller lines, casino/sports betting tax proposals" },
-  { abbr:"UT", name:"Utah",                 level:"high",     note:"2% CVMA hospitality tax – built rules & qualifying conditions" },
   { abbr:"VT", name:"Vermont",              level:"standard", note:"Taxability determinations" },
-  { abbr:"VA", name:"Virginia",             level:"high",     note:"Short-term leasing templates (3 types), Chesterfield VA review" },
-  { abbr:"WA", name:"Washington",           level:"hottest",  note:"Reason codes, filing categories, spirits tax, 15+ waste removal locals" },
   { abbr:"WV", name:"West Virginia",        level:"standard", note:"District testing – Charles Point district situs" },
   { abbr:"WI", name:"Wisconsin",            level:"standard", note:"Rate updates & exemption research" },
   { abbr:"WY", name:"Wyoming",              level:"standard", note:"Rate updates & mineral tax" },
