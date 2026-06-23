@@ -114,3 +114,33 @@
   font-variant-numeric: tabular-nums;
   font-feature-settings: 'tnum';
 }
+
+/* ── Just Work app (/justwork) ───────────────────────────────
+   A minimal Pomodoro timer. Same scoped-token approach as `.jump-app`:
+   surfaces respond to the site-wide `.dark` class and never leak elsewhere. */
+.justwork-app {
+  /* Light: warm parchment with deep-green ink. */
+  --bg: #f5f1e8;
+  --surface: #ffffff;
+  --surface-2: #ece5d6;
+  --line: #dcd3c0;
+  --text: #1a3327;
+  --muted: #66756b;
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+.dark .justwork-app {
+  /* Dark: near-black forest green. */
+  --bg: #0a120d;
+  --surface: #101c15;
+  --surface-2: #17281e;
+  --line: #22372b;
+  --text: #f2eee3;
+  --muted: #8b9a8f;
+}
+
+.justwork-app .tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+}

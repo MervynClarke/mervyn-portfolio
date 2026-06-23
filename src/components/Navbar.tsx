@@ -67,6 +67,9 @@ export default function Navbar() {
   // The /jump app provides its own centered header — hide the global navbar there.
   if (pathname?.startsWith("/jump")) return null;
 
+  // The /justwork app has its own minimal top bar — hide the global navbar too.
+  if (pathname?.startsWith("/justwork")) return null;
+
   const handleNavClick = (href: string) => {
     setMobileOpen(false);
 
