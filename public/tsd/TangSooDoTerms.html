@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tang Soo Do Terminology — San's Martial Arts</title>
+<script>
+  (function(){
+    var t='light';
+    try{ var s=localStorage.getItem('tsd-theme');
+      if(s) t=s; else if(window.matchMedia && matchMedia('(prefers-color-scheme:dark)').matches) t='dark';
+    }catch(e){}
+    document.documentElement.setAttribute('data-theme',t);
+  })();
+</script>
+<style>
+  :root{
+    --bg:#eef0f3; --card:#ffffff; --ink:#1a1c20; --muted:#6b7280; --line:#e6e9ee;
+    --hero:#15171c; --hero-ink:#ffffff; --shadow:0 3px 12px rgba(0,0,0,.12);
+    color-scheme:light;
+  }
+  html[data-theme="dark"]{
+    --bg:#0f1216; --card:#1b1f27; --ink:#e9ebef; --muted:#9aa2ad; --line:#2c323c;
+    --hero:#05070a; --hero-ink:#ffffff; --shadow:0 6px 18px rgba(0,0,0,.5);
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);color:var(--ink);padding:0 0 40px;
+    transition:background .2s ease,color .2s ease}
+  .head{position:relative;background:
+      radial-gradient(120% 140% at 80% -20%, rgba(255,255,255,.10), transparent 60%),
+      var(--hero);
+    color:var(--hero-ink);padding:30px 18px 26px;border-radius:0 0 24px 24px;text-align:center;
+    box-shadow:0 8px 24px rgba(0,0,0,.18)}
+  .head h1{margin:0;font-size:25px;letter-spacing:.3px;padding:0 44px}
+  .head p{margin:9px 0 0;font-size:14px;opacity:.82}
+  .theme-toggle{
+    position:absolute;top:16px;right:14px;width:42px;height:42px;border:none;border-radius:50%;
+    cursor:pointer;font-size:19px;line-height:1;background:rgba(255,255,255,.16);
+    color:var(--hero-ink);display:flex;align-items:center;justify-content:center}
+  .theme-toggle:active{transform:scale(.93)}
+  .wrap{max-width:680px;margin:0 auto;padding:18px 14px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(min-width:560px){.grid{grid-template-columns:1fr 1fr 1fr}}
+  .belt-btn{
+    position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;
+    min-height:116px;padding:14px 15px 20px;border-radius:18px;text-decoration:none;
+    background:var(--c);color:var(--t);box-shadow:var(--shadow);
+    transition:transform .1s ease,box-shadow .2s ease}
+  .belt-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.28)}
+  .belt-btn:active{transform:translateY(0) scale(.99)}
+  .belt-btn .ico{position:absolute;top:11px;left:13px;width:34px;opacity:.9;z-index:1}
+  .belt-btn .ico .knot{width:34px;height:auto;display:block}
+  .belt-btn .bn{font-size:16px;font-weight:800;line-height:1.15;position:relative;z-index:1}
+  .belt-btn .br{font-size:12.5px;font-weight:600;opacity:.92;margin-top:3px;position:relative;z-index:1}
+  .belt-btn .stripe{position:absolute;left:0;right:0;bottom:9px;height:6px;background:#fff;opacity:.95;z-index:0}
+  footer{text-align:center;font-size:12.5px;color:var(--muted);margin-top:26px;line-height:1.5}
+</style>
+</head>
+<body>
+  <div class="head">
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode"></button>
+    <h1>Tang Soo Do Terminology</h1>
+  </div>
+  <div class="wrap">
+    <div class="grid">
+<a class="belt-btn" href="/YellowBelt" style="--c:#F2D200;--t:#1a1a1a"><span class="ico"><svg class="knot" viewBox="0 0 64 42" fill="currentColor" aria-hidden="true"><rect x="2" y="11" width="60" height="12" rx="6"/><path d="M25 21 L21 42 L29 42 L30 23 Z"/><path d="M39 21 L43 42 L35 42 L34 23 Z"/><rect x="23" y="8" width="18" height="18" rx="4"/></svg></span><span class="bn">Yellow Belt</span><span class="br">9th Gup &middot; 22 terms</span></a>
+<a class="belt-btn" href="/OrangeBelt" style="--c:#EF7C13;--t:#ffffff"><span class="ico"><svg class="knot" viewBox="0 0 64 42" fill="currentColor" aria-hidden="true"><rect x="2" y="11" width="60" height="12" rx="6"/><path d="M25 21 L21 42 L29 42 L30 23 Z"/><path d="M39 21 L43 42 L35 42 L34 23 Z"/><rect x="23" y="8" width="18" height="18" rx="4"/></svg></span><span class="bn">Orange Belt</span><span class="br">8th Gup &middot; 31 terms</span></a>
+<a class="belt-btn" href="/OrangeStripeBelt" style="--c:#EF7C13;--t:#ffffff"><span class="ico"><svg class="knot" viewBox="0 0 64 42" fill="currentColor" aria-hidden="true"><rect x="2" y="11" width="60" height="12" rx="6"/><path d="M25 21 L21 42 L29 42 L30 23 Z"/><path d="M39 21 L43 42 L35 42 L34 23 Z"/><rect x="23" y="8" width="18" height="18" rx="4"/></svg></span><span class="bn">Orange Belt with Stripe</span><span class="br">7th Gup &middot; 41 terms</span><span class="stripe"></span></a>
+<a class="belt-btn" href="/GreenBelt" style="--c:#1B9E1B;--t:#ffffff"><span class="ico"><svg class="knot" viewBox="0 0 64 42" fill="currentColor" aria-hidden="true"><rect x="2" y="11" width="60" height="12" rx="6"/><path d="M25 21 L21 42 L29 42 L30 23 Z"/><path d="M39 21 L43 42 L35 42 L34 23 Z"/><rect x="23" y="8" width="18" height="18" rx="4"/></svg></span><span class="bn">Green Belt</span><span class="br">6th Gup &middot; 49 terms</span></a>
+<a class="belt-btn" href="/GreenStripeBelt" style="--c:#1B9E1B;--t:#ffffff"><span class="ico"><svg class="knot" viewBox="0 0 64 42" fill="currentColor" aria-hidden="true"><rect x="2" y="11" width="60" height="12" rx="6"/><path d="M25 21 L21 42 L29 42 L30 23 Z"/><path d="M39 21 L43 42 L35 42 L34 23 Z"/><rect x="23" y="8" width="18" height="18" rx="4"/></svg></span><span class="bn">Green Belt with Stripe</span><span class="br">5th Gup &middot; 54 terms</span><span class="stripe"></span></a>
+<a class="belt-btn" href="/BrownBelt" style="--c:#6E3F1E;--t:#ffffff"><span class="ico"><svg class="knot" viewBox="0 0 64 42" fill="currentColor" aria-hidden="true"><rect x="2" y="11" width="60" height="12" rx="6"/><path d="M25 21 L21 42 L29 42 L30 23 Z"/><path d="M39 21 L43 42 L35 42 L34 23 Z"/><rect x="23" y="8" width="18" height="18" rx="4"/></svg></span><span class="bn">Brown Belt</span><span class="br">4th Gup &middot; 62 terms</span></a>
+<a class="belt-btn" href="/BrownStripeBelt" style="--c:#6E3F1E;--t:#ffffff"><span class="ico"><svg class="knot" viewBox="0 0 64 42" fill="currentColor" aria-hidden="true"><rect x="2" y="11" width="60" height="12" rx="6"/><path d="M25 21 L21 42 L29 42 L30 23 Z"/><path d="M39 21 L43 42 L35 42 L34 23 Z"/><rect x="23" y="8" width="18" height="18" rx="4"/></svg></span><span class="bn">Brown Belt with Stripe</span><span class="br">3rd Gup &middot; 68 terms</span><span class="stripe"></span></a>
+<a class="belt-btn" href="/RedBelt" style="--c:#E11B22;--t:#ffffff"><span class="ico"><svg class="knot" viewBox="0 0 64 42" fill="currentColor" aria-hidden="true"><rect x="2" y="11" width="60" height="12" rx="6"/><path d="M25 21 L21 42 L29 42 L30 23 Z"/><path d="M39 21 L43 42 L35 42 L34 23 Z"/><rect x="23" y="8" width="18" height="18" rx="4"/></svg></span><span class="bn">Red Belt</span><span class="br">2nd Gup &middot; 75 terms</span></a>
+<a class="belt-btn" href="/RedStripeBelt" style="--c:#E11B22;--t:#ffffff"><span class="ico"><svg class="knot" viewBox="0 0 64 42" fill="currentColor" aria-hidden="true"><rect x="2" y="11" width="60" height="12" rx="6"/><path d="M25 21 L21 42 L29 42 L30 23 Z"/><path d="M39 21 L43 42 L35 42 L34 23 Z"/><rect x="23" y="8" width="18" height="18" rx="4"/></svg></span><span class="bn">Red Belt with Stripe</span><span class="br">1st Gup &middot; 82 terms</span><span class="stripe"></span></a>
+<a class="belt-btn" href="/ChoDanBo" style="--c:#16447F;--t:#ffffff"><span class="ico"><svg class="knot" viewBox="0 0 64 42" fill="currentColor" aria-hidden="true"><rect x="2" y="11" width="60" height="12" rx="6"/><path d="M25 21 L21 42 L29 42 L30 23 Z"/><path d="M39 21 L43 42 L35 42 L34 23 Z"/><rect x="23" y="8" width="18" height="18" rx="4"/></svg></span><span class="bn">Cho Dan Bo (Dark Blue)</span><span class="br">Cho Dan Bo &middot; 89 terms</span></a>
+<a class="belt-btn" href="/BlackBelt" style="--c:#141414;--t:#ffffff"><span class="ico"><svg class="knot" viewBox="0 0 64 42" fill="currentColor" aria-hidden="true"><rect x="2" y="11" width="60" height="12" rx="6"/><path d="M25 21 L21 42 L29 42 L30 23 Z"/><path d="M39 21 L43 42 L35 42 L34 23 Z"/><rect x="23" y="8" width="18" height="18" rx="4"/></svg></span><span class="bn">Black Belt (1st Dan)</span><span class="br">1st Dan &middot; 90 terms</span></a>
+    </div>
+    <footer>Flashcards &amp; quizzes for every rank &mdash; terminology is cumulative, so each belt includes all lower ranks.<br><br>Tang Soo Do terminology &amp; curriculum are the property of San's Martial Arts, provided here for students' study. Study tool built by Merv.Work.</footer>
+  </div>
+<script>
+  (function(){
+    var btn=document.getElementById('theme-toggle');
+    function paint(t){
+      document.documentElement.setAttribute('data-theme',t);
+      btn.textContent=(t==='dark')?'☀️':'🌙';
+      btn.setAttribute('aria-label',t==='dark'?'Switch to light mode':'Switch to dark mode');
+    }
+    btn.onclick=function(){
+      var next=(document.documentElement.getAttribute('data-theme')==='dark')?'light':'dark';
+      paint(next); try{localStorage.setItem('tsd-theme',next);}catch(e){}
+    };
+    paint(document.documentElement.getAttribute('data-theme')||'light');
+  })();
+</script>
+</body>
+</html>

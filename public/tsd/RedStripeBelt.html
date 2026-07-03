@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tang Soo Do Study</title>
+<script>
+  /* Set theme before first paint (no flash). Uses saved preference if present,
+     else the OS/browser preference. localStorage is optional enhancement. */
+  (function(){
+    var t = 'light';
+    try{
+      var s = localStorage.getItem('tsd-theme');
+      if (s) t = s;
+      else if (window.matchMedia && matchMedia('(prefers-color-scheme:dark)').matches) t = 'dark';
+    }catch(e){}
+    document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+<style>
+  :root{
+    /* --belt / --on-belt / --accent are injected per belt below */
+    --belt:#333; --on-belt:#fff; --accent:#333; --radius:16px;
+    --bg:#eef0f3; --card:#ffffff; --card-2:#eef0f4;
+    --ink:#1a1c20; --muted:#6b7280; --line:#e2e5ea;
+    --shadow:0 4px 16px rgba(0,0,0,.10);
+    --ok-bg:#e7f6ec; --ok-bd:#137a3a; --ok-tx:#0f5f2e;
+    --no-bg:#fdecec; --no-bd:#c0341d; --no-tx:#8f2415;
+    --note-bg:#fff8e6; --note-bd:#f0e2b8; --note-tx:#6b5b12; --note-hd:#7a6612;
+    color-scheme:light;
+  }
+  html[data-theme="dark"]{
+    --bg:#0f1216; --card:#1b1f27; --card-2:#2a2f38;
+    --ink:#e9ebef; --muted:#9aa2ad; --line:#2c323c;
+    --shadow:0 6px 20px rgba(0,0,0,.5);
+    --ok-bg:#12321f; --ok-bd:#33a866; --ok-tx:#84e2a8;
+    --no-bg:#331a1a; --no-bd:#e05b46; --no-tx:#f2a99c;
+    --note-bg:#26240f; --note-bd:#4a4522; --note-tx:#e6d38a; --note-hd:#f0dc94;
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg); color:var(--ink);
+    line-height:1.45; padding-bottom:env(safe-area-inset-bottom);
+    transition:background .2s ease, color .2s ease;
+  }
+  .theme-toggle{
+    position:absolute; top:16px; right:14px; width:42px; height:42px; z-index:2;
+    border:none; border-radius:50%; cursor:pointer; font-size:19px; line-height:1;
+    background:color-mix(in srgb, var(--on-belt) 18%, transparent);
+    color:var(--on-belt); display:flex; align-items:center; justify-content:center;
+  }
+  .theme-toggle:active{transform:scale(.93)}
+  .wrap{max-width:640px; margin:0 auto; padding:0 14px 48px}
+
+  /* Header */
+  header.hdr{
+    background:var(--belt); color:var(--on-belt);
+    border-radius:0 0 22px 22px; padding:20px 18px 22px;
+    box-shadow:0 6px 20px rgba(0,0,0,.14); position:relative; overflow:hidden;
+  }
+  header.hdr.striped{padding-bottom:40px}
+  header.hdr.striped::after{
+    content:""; position:absolute; left:0; right:0; bottom:18px; height:10px;
+    background:#fff; box-shadow:0 0 0 1px rgba(0,0,0,.06);
+  }
+  .home{
+    display:inline-block; color:var(--on-belt); text-decoration:none;
+    font-size:14px; opacity:.9; margin-bottom:8px;
+  }
+  .home:active{opacity:.6}
+  h1{margin:0; font-size:26px; line-height:1.15; letter-spacing:.2px}
+  .rank{font-size:14px; font-weight:600; opacity:.9; margin-top:2px}
+  .represents{font-size:14px; margin-top:10px; opacity:.95}
+  .scope{
+    margin:14px auto 0; max-width:640px; padding:0 14px;
+    font-size:13px; color:var(--muted); text-align:center;
+  }
+
+  /* Tabs */
+  .tabs{
+    display:flex; gap:8px; margin:16px auto 0; max-width:640px; padding:0 14px;
+  }
+  .tab{
+    flex:1; padding:13px 10px; border:none; border-radius:12px; cursor:pointer;
+    font-size:16px; font-weight:700; background:var(--card); color:var(--muted);
+    box-shadow:0 1px 3px rgba(0,0,0,.08);
+  }
+  .tab.active{background:var(--belt); color:var(--on-belt)}
+
+  section.panel{margin-top:16px}
+  .hidden{display:none !important}
+
+  /* Controls */
+  .controls{
+    display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px;
+  }
+  .ctl{
+    background:var(--card); border:1px solid var(--line); border-radius:10px;
+    padding:8px 10px; font-size:13px; color:var(--ink); display:flex;
+    align-items:center; gap:6px;
+  }
+  .ctl label{color:var(--muted); font-weight:600}
+  select{
+    font-size:14px; border:none; background:transparent; color:var(--ink);
+    font-weight:600; padding:2px; min-height:24px;
+  }
+  .segmented{display:inline-flex; background:var(--card-2); border-radius:8px; padding:2px}
+  .segmented button{
+    border:none; background:transparent; padding:6px 10px; border-radius:6px;
+    font-size:13px; font-weight:600; color:var(--muted); cursor:pointer;
+  }
+  .segmented button.on{background:var(--card); color:var(--ink); box-shadow:0 1px 2px rgba(0,0,0,.12)}
+
+  /* Flashcard */
+  .card{
+    background:var(--card); border-radius:var(--radius); padding:30px 22px;
+    min-height:220px; display:flex; flex-direction:column; align-items:center;
+    justify-content:center; text-align:center; cursor:pointer; user-select:none;
+    box-shadow:var(--shadow); border-top:6px solid var(--accent);
+    position:relative; transition:transform .08s ease;
+  }
+  .card:active{transform:scale(.99)}
+  .card .side-label{
+    position:absolute; top:12px; left:14px; font-size:11px; font-weight:700;
+    letter-spacing:.06em; text-transform:uppercase; color:var(--muted);
+  }
+  .card .cat-tag{
+    position:absolute; top:12px; right:14px; font-size:11px; font-weight:600;
+    color:var(--accent); background:color-mix(in srgb,var(--accent) 16%, var(--card));
+    padding:2px 8px; border-radius:999px; max-width:55%; overflow:hidden;
+    text-overflow:ellipsis; white-space:nowrap;
+  }
+  .card .content{font-size:22px; font-weight:600}
+  .card .hint{position:absolute; bottom:12px; font-size:12px; color:var(--muted)}
+  .card.is-back .content{font-size:19px; font-weight:500}
+
+  .navrow{
+    display:flex; align-items:center; gap:10px; margin-top:14px;
+  }
+  .nav-btn{
+    flex:0 0 auto; width:56px; height:52px; border:none; border-radius:12px;
+    background:var(--card); box-shadow:0 1px 3px rgba(0,0,0,.1); font-size:22px;
+    cursor:pointer; color:var(--ink);
+  }
+  .nav-btn:active{background:var(--card-2)}
+  .counter{flex:1; text-align:center; font-weight:700; font-size:15px}
+
+  .markrow{display:flex; gap:10px; margin-top:12px}
+  .mark-btn{
+    flex:1; padding:12px; border:none; border-radius:12px; font-size:15px;
+    font-weight:700; cursor:pointer; box-shadow:0 1px 3px rgba(0,0,0,.1);
+  }
+  .mark-got{background:var(--ok-bg); color:var(--ok-bd)}
+  .mark-got.on{background:var(--ok-bd); color:#fff}
+  .mark-rev{background:var(--no-bg); color:var(--no-bd)}
+  .mark-rev.on{background:var(--no-bd); color:#fff}
+
+  .btn{
+    border:none; border-radius:10px; padding:10px 14px; font-size:14px;
+    font-weight:700; cursor:pointer; background:var(--belt); color:var(--on-belt);
+    box-shadow:0 1px 3px rgba(0,0,0,.12);
+  }
+  .btn.ghost{background:var(--card); color:var(--ink); border:1px solid var(--line)}
+  .empty{
+    background:var(--card); border-radius:var(--radius); padding:36px 20px;
+    text-align:center; color:var(--muted); box-shadow:var(--shadow);
+  }
+
+  /* Quiz */
+  .quiz-start{
+    background:var(--card); border-radius:var(--radius); padding:24px 20px;
+    box-shadow:var(--shadow); text-align:center;
+  }
+  .quiz-start h2{margin:0 0 6px; font-size:20px}
+  .quiz-start p{color:var(--muted); margin:0 0 18px; font-size:14px}
+  .qprogress{display:flex; justify-content:space-between; font-size:14px;
+    font-weight:700; margin-bottom:10px}
+  .qprogress .score{color:var(--accent)}
+  .qcard{
+    background:var(--card); border-radius:var(--radius); padding:20px;
+    box-shadow:var(--shadow); border-top:6px solid var(--accent);
+  }
+  .qcat{font-size:12px; font-weight:700; color:var(--accent); text-transform:uppercase;
+    letter-spacing:.05em; margin-bottom:6px}
+  .qprompt{font-size:20px; font-weight:600; margin-bottom:16px}
+  .opt{
+    display:block; width:100%; text-align:left; margin:9px 0; padding:15px 16px;
+    border:2px solid var(--line); border-radius:12px; background:var(--card); cursor:pointer;
+    font-size:16px; color:var(--ink); line-height:1.35;
+  }
+  .opt:active{background:var(--card-2)}
+  .opt.correct{border-color:var(--ok-bd); background:var(--ok-bg); color:var(--ok-tx); font-weight:600}
+  .opt.wrong{border-color:var(--no-bd); background:var(--no-bg); color:var(--no-tx)}
+  .opt.disabled{cursor:default}
+  .feedback{margin-top:14px; font-weight:700; text-align:center; min-height:22px}
+  .feedback.ok{color:var(--ok-bd)}
+  .feedback.no{color:var(--no-bd)}
+  .qnext{margin-top:14px; width:100%; padding:15px}
+
+  .summary{
+    background:var(--card); border-radius:var(--radius); padding:28px 20px;
+    box-shadow:var(--shadow); text-align:center;
+  }
+  .summary .big{font-size:44px; font-weight:800; color:var(--accent); margin:6px 0}
+  .summary .pct{color:var(--muted); font-size:15px; margin-bottom:18px}
+
+  /* Reference note */
+  .refnote{
+    background:var(--note-bg); border:1px solid var(--note-bd); border-radius:12px;
+    padding:14px 16px; margin-top:16px; font-size:14px; color:var(--note-tx);
+  }
+  .refnote b{display:block; margin-bottom:4px; color:var(--note-hd)}
+
+  footer{margin-top:28px; text-align:center; font-size:12px; color:var(--muted)}
+</style>
+<style>:root{--belt:#E11B22;--on-belt:#ffffff;--accent:#E11B22;}html[data-theme="dark"]{--accent:#f2565b;}</style>
+</head>
+<body>
+<script>var PAGE = {"beltName":"Red Belt with Stripe","rank":"1st Gup","represents":"Red Belt with Stripe: techniques continue to bloom and ripen.","slug":"RedStripeBelt","theme":{"color":"#E11B22","onColor":"#ffffff","stripe":true,"accentDark":"#f2565b"},"hasNumbers":true,"termCount":82,"refNotes":[],"deck":[{"id":0,"type":"term","cat":"Reasons to Train","belt":"Yellow Belt","thisBelt":false,"front":"Reason #1 to train in Tang Soo Do","back":"Self-Defense — protect ourselves from people who try to hurt us"},{"id":1,"type":"term","cat":"Reasons to Train","belt":"Yellow Belt","thisBelt":false,"front":"Reason #2 to train in Tang Soo Do","back":"Health — make our bodies strong through exercise and being active"},{"id":2,"type":"term","cat":"Reasons to Train","belt":"Yellow Belt","thisBelt":false,"front":"Reason #3 to train in Tang Soo Do","back":"Become a Better Person — set goals, work hard, and help fellow students"},{"id":3,"type":"term","cat":"Belt Meanings","belt":"Yellow Belt","thisBelt":false,"front":"What does the White Belt represent?","back":"A primitive stage of achievement — the seed as it lies dormant beneath the snows of winter"},{"id":4,"type":"term","cat":"Belt Meanings","belt":"Yellow Belt","thisBelt":false,"front":"What does the Yellow Belt represent?","back":"The planted seed begins to sprout and make roots under the surface"},{"id":5,"type":"term","cat":"Core Terms","belt":"Yellow Belt","thisBelt":false,"front":"Tang Soo Do","back":"The name of the Korean art we are studying"},{"id":6,"type":"term","cat":"Core Terms","belt":"Yellow Belt","thisBelt":false,"front":"Sah Bum Ni","back":"Teacher"},{"id":7,"type":"term","cat":"Core Terms","belt":"Yellow Belt","thisBelt":false,"front":"Do Jang","back":"The school / training area"},{"id":8,"type":"term","cat":"Core Terms","belt":"Yellow Belt","thisBelt":false,"front":"Do Bahk","back":"Your uniform"},{"id":9,"type":"term","cat":"Core Terms","belt":"Yellow Belt","thisBelt":false,"front":"Dee","back":"Your belt"},{"id":10,"type":"term","cat":"Core Terms","belt":"Yellow Belt","thisBelt":false,"front":"Ki-hap","back":"To yell and focus your energy when performing a technique"},{"id":11,"type":"term","cat":"Core Terms","belt":"Yellow Belt","thisBelt":false,"front":"Ko Map Sum Ni Da","back":"Thank you"},{"id":12,"type":"number","cat":"Numbers","belt":"Yellow Belt","thisBelt":false,"english":"One","korean":"Hana","chinese":"Ill"},{"id":13,"type":"number","cat":"Numbers","belt":"Yellow Belt","thisBelt":false,"english":"Two","korean":"Tul or Dool","chinese":"Yi or Ee"},{"id":14,"type":"number","cat":"Numbers","belt":"Yellow Belt","thisBelt":false,"english":"Three","korean":"Set","chinese":"Sam"},{"id":15,"type":"number","cat":"Numbers","belt":"Yellow Belt","thisBelt":false,"english":"Four","korean":"Net","chinese":"Sa"},{"id":16,"type":"number","cat":"Numbers","belt":"Yellow Belt","thisBelt":false,"english":"Five","korean":"Ta sot","chinese":"Oh"},{"id":17,"type":"number","cat":"Numbers","belt":"Yellow Belt","thisBelt":false,"english":"Six","korean":"Yo sot","chinese":"Yuk"},{"id":18,"type":"number","cat":"Numbers","belt":"Yellow Belt","thisBelt":false,"english":"Seven","korean":"Illgol","chinese":"Chil"},{"id":19,"type":"number","cat":"Numbers","belt":"Yellow Belt","thisBelt":false,"english":"Eight","korean":"Yoh dol","chinese":"Pal"},{"id":20,"type":"number","cat":"Numbers","belt":"Yellow Belt","thisBelt":false,"english":"Nine","korean":"Ah hop","chinese":"Ku"},{"id":21,"type":"number","cat":"Numbers","belt":"Yellow Belt","thisBelt":false,"english":"Ten","korean":"Yeol","chinese":"Sip"},{"id":22,"type":"term","cat":"Rank Terms","belt":"Orange Belt","thisBelt":false,"front":"Dan","back":"Rank term for Black Belts (a first-degree Black Belt is a 1st Dan)"},{"id":23,"type":"term","cat":"Rank Terms","belt":"Orange Belt","thisBelt":false,"front":"Gup","back":"Rank term for all colored belts except the dark Blue Belt"},{"id":24,"type":"term","cat":"Rank Terms","belt":"Orange Belt","thisBelt":false,"front":"Hyung","back":"\"Form\" or \"Pattern\" (forms training = Hyung training)"},{"id":25,"type":"term","cat":"Class Commands","belt":"Orange Belt","thisBelt":false,"front":"Cha Ryut","back":"Come to attention"},{"id":26,"type":"term","cat":"Class Commands","belt":"Orange Belt","thisBelt":false,"front":"Kukgi Bae Rye","back":"Salute to the flag"},{"id":27,"type":"term","cat":"Class Commands","belt":"Orange Belt","thisBelt":false,"front":"Baro","back":"Return (hand back to the side)"},{"id":28,"type":"term","cat":"Class Commands","belt":"Orange Belt","thisBelt":false,"front":"Muk Yum","back":"Say a prayer / collect your thoughts / meditate"},{"id":29,"type":"term","cat":"Class Commands","belt":"Orange Belt","thisBelt":false,"front":"Kyung Yet","back":"Bow"},{"id":30,"type":"term","cat":"Class Commands","belt":"Orange Belt","thisBelt":false,"front":"Sah Bum Nim E Kyung Yet","back":"Bow to the instructor"},{"id":31,"type":"term","cat":"5 Codes of Tang Soo Do","belt":"Orange Belt with Stripe","thisBelt":false,"front":"1st Code of Tang Soo Do","back":"Loyalty to Country"},{"id":32,"type":"term","cat":"5 Codes of Tang Soo Do","belt":"Orange Belt with Stripe","thisBelt":false,"front":"2nd Code of Tang Soo Do","back":"Obedience to parents"},{"id":33,"type":"term","cat":"5 Codes of Tang Soo Do","belt":"Orange Belt with Stripe","thisBelt":false,"front":"3rd Code of Tang Soo Do","back":"Honor Friendship"},{"id":34,"type":"term","cat":"5 Codes of Tang Soo Do","belt":"Orange Belt with Stripe","thisBelt":false,"front":"4th Code of Tang Soo Do","back":"Always finish what you start"},{"id":35,"type":"term","cat":"5 Codes of Tang Soo Do","belt":"Orange Belt with Stripe","thisBelt":false,"front":"5th Code of Tang Soo Do","back":"In fighting, choose with sense and honor"},{"id":36,"type":"term","cat":"Meaning of the American Flag","belt":"Orange Belt with Stripe","thisBelt":false,"front":"What do the 13 stripes stand for?","back":"The Thirteen Original Colonies"},{"id":37,"type":"term","cat":"Meaning of the American Flag","belt":"Orange Belt with Stripe","thisBelt":false,"front":"What do the red stripes represent?","back":"Valor and the blood shed in our fight for freedom"},{"id":38,"type":"term","cat":"Meaning of the American Flag","belt":"Orange Belt with Stripe","thisBelt":false,"front":"What do the white stripes stand for?","back":"Purity, unity, and brotherhood"},{"id":39,"type":"term","cat":"Meaning of the American Flag","belt":"Orange Belt with Stripe","thisBelt":false,"front":"What does the color blue / the blue field represent?","back":"Blue represents honor; the blue field represents the night sky"},{"id":40,"type":"term","cat":"Meaning of the American Flag","belt":"Orange Belt with Stripe","thisBelt":false,"front":"What do the fifty stars represent?","back":"The fifty United States of America; the stars on the blue field represent a new constellation"},{"id":41,"type":"term","cat":"Blocks","belt":"Green Belt","thisBelt":false,"front":"Sang Dan Mahk Ki","back":"High Block (high defense)"},{"id":42,"type":"term","cat":"Blocks","belt":"Green Belt","thisBelt":false,"front":"Ahneso Phaku Ro Mahk Ki","back":"Inside/Outside Block"},{"id":43,"type":"term","cat":"Stances & Commands","belt":"Green Belt","thisBelt":false,"front":"Choon Bee (Ja Seh)","back":"Ready (implies ready stance)"},{"id":44,"type":"term","cat":"Stances & Commands","belt":"Green Belt","thisBelt":false,"front":"Kee Ma Ja Seh","back":"Horse Stance"},{"id":45,"type":"term","cat":"Stances & Commands","belt":"Green Belt","thisBelt":false,"front":"Hu Kul Ja Seh","back":"Back Stance (a.k.a. Traditional Fighting Stance)"},{"id":46,"type":"term","cat":"Stances & Commands","belt":"Green Belt","thisBelt":false,"front":"Sa Ko Rip Ja Seh","back":"Side Stance"},{"id":47,"type":"term","cat":"Stances & Commands","belt":"Green Belt","thisBelt":false,"front":"Chun Kul Ja Seh","back":"Front Stance"},{"id":48,"type":"term","cat":"Stances & Commands","belt":"Green Belt","thisBelt":false,"front":"Shio","back":"Relax / rest"},{"id":49,"type":"term","cat":"Meaning of the Korean Flag","belt":"Green Belt with Stripe","thisBelt":false,"front":"Korean flag — Top left corner","back":"Heaven"},{"id":50,"type":"term","cat":"Meaning of the Korean Flag","belt":"Green Belt with Stripe","thisBelt":false,"front":"Korean flag — Bottom right corner","back":"Earth"},{"id":51,"type":"term","cat":"Meaning of the Korean Flag","belt":"Green Belt with Stripe","thisBelt":false,"front":"Korean flag — Bottom left corner","back":"Fire"},{"id":52,"type":"term","cat":"Meaning of the Korean Flag","belt":"Green Belt with Stripe","thisBelt":false,"front":"Korean flag — Top right corner","back":"Water"},{"id":53,"type":"term","cat":"Yin & Yang","belt":"Green Belt with Stripe","thisBelt":false,"front":"What is Yin and Yang?","back":"Equal but opposing forces (e.g., up/down, left/right, push/pull, hot/cold)"},{"id":54,"type":"term","cat":"Anatomy (Body Parts)","belt":"Brown Belt","thisBelt":false,"front":"Pahl","back":"Arm"},{"id":55,"type":"term","cat":"Anatomy (Body Parts)","belt":"Brown Belt","thisBelt":false,"front":"Bahl","back":"Foot"},{"id":56,"type":"term","cat":"Anatomy (Body Parts)","belt":"Brown Belt","thisBelt":false,"front":"Chu Mok","back":"Fist"},{"id":57,"type":"term","cat":"Anatomy (Body Parts)","belt":"Brown Belt","thisBelt":false,"front":"Soo","back":"Hand"},{"id":58,"type":"term","cat":"Anatomy (Body Parts)","belt":"Brown Belt","thisBelt":false,"front":"I Ma","back":"Forehead"},{"id":59,"type":"term","cat":"Anatomy (Body Parts)","belt":"Brown Belt","thisBelt":false,"front":"Tuck","back":"Chin"},{"id":60,"type":"term","cat":"Anatomy (Body Parts)","belt":"Brown Belt","thisBelt":false,"front":"Mok","back":"Neck"},{"id":61,"type":"term","cat":"Anatomy (Body Parts)","belt":"Brown Belt","thisBelt":false,"front":"Hur Ri","back":"Waist"},{"id":62,"type":"term","cat":"Anatomy (Body Parts)","belt":"Brown Belt with Stripe","thisBelt":false,"front":"Pahl Koop","back":"Elbow"},{"id":63,"type":"term","cat":"Anatomy (Body Parts)","belt":"Brown Belt with Stripe","thisBelt":false,"front":"Moo Roope","back":"Knee"},{"id":64,"type":"term","cat":"Anatomy (Body Parts)","belt":"Brown Belt with Stripe","thisBelt":false,"front":"Myung Chi","back":"Solar Plexus"},{"id":65,"type":"term","cat":"Anatomy (Body Parts)","belt":"Brown Belt with Stripe","thisBelt":false,"front":"In Choong","back":"Philtrum (the area under your nose)"},{"id":66,"type":"term","cat":"Anatomy (Body Parts)","belt":"Brown Belt with Stripe","thisBelt":false,"front":"Dan Jun","back":"Low Abdomen"},{"id":67,"type":"term","cat":"Anatomy (Body Parts)","belt":"Brown Belt with Stripe","thisBelt":false,"front":"Ko Hwan","back":"Groin"},{"id":68,"type":"term","cat":"The 7 Tenets of Tang Soo Do","belt":"Red Belt","thisBelt":false,"front":"Integrity","back":"Being honest; having strong moral principles"},{"id":69,"type":"term","cat":"The 7 Tenets of Tang Soo Do","belt":"Red Belt","thisBelt":false,"front":"Concentration","back":"The ability to focus"},{"id":70,"type":"term","cat":"The 7 Tenets of Tang Soo Do","belt":"Red Belt","thisBelt":false,"front":"Perseverance","back":"Never giving up"},{"id":71,"type":"term","cat":"The 7 Tenets of Tang Soo Do","belt":"Red Belt","thisBelt":false,"front":"Respect and Obedience","back":"Being polite and compliant"},{"id":72,"type":"term","cat":"The 7 Tenets of Tang Soo Do","belt":"Red Belt","thisBelt":false,"front":"Self-Control","back":"Being in charge of one's impulses"},{"id":73,"type":"term","cat":"The 7 Tenets of Tang Soo Do","belt":"Red Belt","thisBelt":false,"front":"Humility","back":"Being humble"},{"id":74,"type":"term","cat":"The 7 Tenets of Tang Soo Do","belt":"Red Belt","thisBelt":false,"front":"Indomitable Effort","back":"Effort that is impossible to defeat"},{"id":75,"type":"term","cat":"Attitude Requirements 1–7","belt":"Red Belt with Stripe","thisBelt":true,"front":"Attitude Requirement #1","back":"Purpose of training should be enhancement of mental and physical betterment"},{"id":76,"type":"term","cat":"Attitude Requirements 1–7","belt":"Red Belt with Stripe","thisBelt":true,"front":"Attitude Requirement #2","back":"Serious approach"},{"id":77,"type":"term","cat":"Attitude Requirements 1–7","belt":"Red Belt with Stripe","thisBelt":true,"front":"Attitude Requirement #3","back":"All-out effort"},{"id":78,"type":"term","cat":"Attitude Requirements 1–7","belt":"Red Belt with Stripe","thisBelt":true,"front":"Attitude Requirement #4","back":"Maintain regular and constant practice"},{"id":79,"type":"term","cat":"Attitude Requirements 1–7","belt":"Red Belt with Stripe","thisBelt":true,"front":"Attitude Requirement #5","back":"Practice basic techniques all the time"},{"id":80,"type":"term","cat":"Attitude Requirements 1–7","belt":"Red Belt with Stripe","thisBelt":true,"front":"Attitude Requirement #6","back":"Regularly spaced practice sessions"},{"id":81,"type":"term","cat":"Attitude Requirements 1–7","belt":"Red Belt with Stripe","thisBelt":true,"front":"Attitude Requirement #7","back":"Always listen and follow the direction of instructor or seniors"}]};</script>
+
+<header class="hdr" id="hdr">
+  <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode"></button>
+  <a class="home" href="/TangSooDoTerms">&larr; All belts</a>
+  <h1 id="beltName"></h1>
+  <div class="rank" id="rank"></div>
+  <div class="represents" id="represents"></div>
+</header>
+<div class="scope" id="scope"></div>
+
+<div class="tabs">
+  <button class="tab active" id="tab-flash">Flashcards</button>
+  <button class="tab" id="tab-quiz">Quiz</button>
+</div>
+
+<div class="wrap">
+  <!-- FLASHCARDS -->
+  <section class="panel" id="panel-flash">
+    <div class="controls">
+      <div class="ctl">
+        <label>Direction</label>
+        <div class="segmented" id="dir-seg">
+          <button data-dir="termToMeaning" class="on">Term&nbsp;&rarr;&nbsp;Meaning</button>
+          <button data-dir="meaningToTerm">Meaning&nbsp;&rarr;&nbsp;Term</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label for="cat-sel">Category</label>
+        <select id="cat-sel"><option value="all">All</option></select>
+      </div>
+      <div class="ctl">
+        <label>Scope</label>
+        <div class="segmented" id="scope-seg">
+          <button data-scope="cumulative" class="on">Cumulative</button>
+          <button data-scope="thisBelt">This belt</button>
+        </div>
+      </div>
+      <div class="ctl" id="num-ctl">
+        <label>Numbers</label>
+        <div class="segmented" id="num-seg">
+          <button data-num="korean" class="on">Korean</button>
+          <button data-num="chinese">Chinese</button>
+        </div>
+      </div>
+      <button class="btn ghost" id="review-toggle">Review pile</button>
+      <button class="btn" id="shuffle-btn">Shuffle</button>
+    </div>
+
+    <div id="flash-body"></div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="panel hidden" id="panel-quiz">
+    <div id="quiz-body"></div>
+  </section>
+
+  <footer>Tang Soo Do terminology &amp; curriculum are the property of San's Martial Arts, provided here for students' study. Study tool built by Merv.Work.</footer>
+</div>
+
+<script>
+/* ============================ theme toggle ==================== */
+(function(){
+  var btn = document.getElementById('theme-toggle');
+  function paint(t){
+    document.documentElement.setAttribute('data-theme', t);
+    btn.textContent = (t === 'dark') ? '☀️' : '🌙';
+    btn.setAttribute('aria-label', t === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+  }
+  btn.onclick = function(){
+    var next = (document.documentElement.getAttribute('data-theme') === 'dark') ? 'light' : 'dark';
+    paint(next);
+    try{ localStorage.setItem('tsd-theme', next); }catch(e){}
+  };
+  paint(document.documentElement.getAttribute('data-theme') || 'light');
+})();
+
+/* ============================ state ============================ */
+var T = PAGE.theme;
+if (T.stripe) document.getElementById('hdr').classList.add('striped');
+
+document.getElementById('beltName').textContent = PAGE.beltName;
+document.getElementById('rank').textContent = PAGE.rank;
+document.getElementById('represents').textContent = PAGE.represents;
+document.getElementById('scope').textContent =
+  'Studying all terms through ' + PAGE.rank + ' (' + PAGE.beltName + ') — ' +
+  PAGE.termCount + ' terms.';
+document.title = PAGE.beltName + ' — Tang Soo Do Study';
+
+var state = {
+  direction: 'termToMeaning',
+  numbers: 'korean',
+  scope: 'cumulative',
+  category: 'all',
+  reviewOnly: false,
+  order: [],
+  pos: 0,
+  flipped: false,
+  marks: {}            // id -> 'got' | 'review'
+};
+
+/* ============================ helpers ========================= */
+function termSide(it){
+  if (it.type === 'number') return it.english;
+  return it.front;
+}
+function meaningSide(it){
+  if (it.type === 'number') return state.numbers === 'chinese' ? it.chinese : it.korean;
+  return it.back;
+}
+// prompt / answer respect direction
+function promptOf(it){ return state.direction === 'termToMeaning' ? termSide(it) : meaningSide(it); }
+function answerOf(it){ return state.direction === 'termToMeaning' ? meaningSide(it) : termSide(it); }
+
+function shuffle(a){
+  for (var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i];a[i]=a[j];a[j]=t; }
+  return a;
+}
+
+// Deck filtered by scope + category + review pile.
+function visibleDeck(){
+  return PAGE.deck.filter(function(it){
+    if (state.scope === 'thisBelt' && !it.thisBelt) return false;
+    if (state.category !== 'all' && it.cat !== state.category) return false;
+    if (state.reviewOnly && state.marks[it.id] !== 'review') return false;
+    return true;
+  });
+}
+
+/* populate category dropdown */
+(function(){
+  var cats = [];
+  PAGE.deck.forEach(function(it){ if (cats.indexOf(it.cat) < 0) cats.push(it.cat); });
+  var sel = document.getElementById('cat-sel');
+  cats.forEach(function(c){
+    var o = document.createElement('option'); o.value = c; o.textContent = c; sel.appendChild(o);
+  });
+})();
+if (!PAGE.hasNumbers) document.getElementById('num-ctl').style.display = 'none';
+
+/* ============================ flashcards ====================== */
+function rebuildOrder(keepPos){
+  var deck = visibleDeck();
+  state.order = deck.map(function(it){ return it.id; });
+  if (!keepPos || state.pos >= state.order.length) state.pos = 0;
+  state.flipped = false;
+}
+
+function currentItem(){
+  var id = state.order[state.pos];
+  return PAGE.deck.find(function(it){ return it.id === id; });
+}
+
+function renderFlash(){
+  var body = document.getElementById('flash-body');
+  if (state.order.length === 0){
+    var msg = state.reviewOnly
+      ? 'Your review pile is empty. Mark cards &ldquo;Review again&rdquo; to add them here.'
+      : 'No cards match these filters.';
+    body.innerHTML = '<div class="empty">' + msg + '</div>';
+    return;
+  }
+  var it = currentItem();
+  var showBack = state.flipped;
+  var face = showBack ? answerOf(it) : promptOf(it);
+  var label = showBack
+    ? (state.direction === 'termToMeaning' ? 'Meaning' : 'Term')
+    : (state.direction === 'termToMeaning' ? 'Term' : 'Meaning');
+  var mark = state.marks[it.id];
+
+  body.innerHTML =
+    '<div class="card ' + (showBack?'is-back':'') + '" id="card">' +
+      '<span class="side-label">' + label + '</span>' +
+      '<span class="cat-tag">' + escapeHtml(it.cat) + '</span>' +
+      '<div class="content">' + escapeHtml(face) + '</div>' +
+      '<div class="hint">' + (showBack ? 'Tap to hide' : 'Tap to reveal') + '</div>' +
+    '</div>' +
+    '<div class="navrow">' +
+      '<button class="nav-btn" id="prev">&#8249;</button>' +
+      '<div class="counter">' + (state.pos+1) + ' / ' + state.order.length + '</div>' +
+      '<button class="nav-btn" id="next">&#8250;</button>' +
+    '</div>' +
+    '<div class="markrow">' +
+      '<button class="mark-btn mark-got ' + (mark==='got'?'on':'') + '" id="mk-got">&#10003; Got it</button>' +
+      '<button class="mark-btn mark-rev ' + (mark==='review'?'on':'') + '" id="mk-rev">&#8635; Review again</button>' +
+    '</div>';
+
+  document.getElementById('card').onclick = function(){ state.flipped = !state.flipped; renderFlash(); };
+  document.getElementById('prev').onclick = function(){ move(-1); };
+  document.getElementById('next').onclick = function(){ move(1); };
+  document.getElementById('mk-got').onclick = function(e){ e.stopPropagation(); toggleMark(it.id,'got'); };
+  document.getElementById('mk-rev').onclick = function(e){ e.stopPropagation(); toggleMark(it.id,'review'); };
+}
+
+function move(d){
+  if (state.order.length === 0) return;
+  state.pos = (state.pos + d + state.order.length) % state.order.length;
+  state.flipped = false;
+  renderFlash();
+}
+function toggleMark(id, kind){
+  state.marks[id] = (state.marks[id] === kind) ? undefined : kind;
+  if (state.reviewOnly){ rebuildOrder(true); }
+  renderFlash();
+}
+
+/* control wiring */
+function wireSeg(segId, apply){
+  var seg = document.getElementById(segId);
+  seg.querySelectorAll('button').forEach(function(b){
+    b.onclick = function(){
+      seg.querySelectorAll('button').forEach(function(x){ x.classList.remove('on'); });
+      b.classList.add('on');
+      apply(b);
+    };
+  });
+}
+wireSeg('dir-seg', function(b){ state.direction = b.dataset.dir; state.flipped=false; renderFlash(); });
+wireSeg('scope-seg', function(b){ state.scope = b.dataset.scope; rebuildOrder(false); renderFlash(); });
+wireSeg('num-seg', function(b){ state.numbers = b.dataset.num; renderFlash(); });
+document.getElementById('cat-sel').onchange = function(e){
+  state.category = e.target.value; rebuildOrder(false); renderFlash();
+};
+document.getElementById('shuffle-btn').onclick = function(){
+  shuffle(state.order); state.pos = 0; state.flipped = false; renderFlash();
+};
+document.getElementById('review-toggle').onclick = function(){
+  state.reviewOnly = !state.reviewOnly;
+  this.classList.toggle('on');
+  this.style.background = state.reviewOnly ? T.color : '';
+  this.style.color = state.reviewOnly ? T.onColor : '';
+  rebuildOrder(false); renderFlash();
+};
+
+/* ============================ quiz =========================== */
+var quiz = null;
+
+function startQuiz(len){
+  var pool = PAGE.deck.slice();               // quiz always uses full cumulative pool
+  var qs = shuffle(pool.slice());
+  if (len !== 'all') qs = qs.slice(0, Math.min(len, qs.length));
+  quiz = { questions: qs, idx: 0, score: 0, answered: false };
+  renderQuestion();
+}
+
+function buildOptions(correct){
+  var correctAns = answerOf(correct);
+  var sameCat = PAGE.deck.filter(function(it){
+    return it.id !== correct.id && it.cat === correct.cat && answerOf(it) !== correctAns;
+  });
+  var others = PAGE.deck.filter(function(it){
+    return it.id !== correct.id && it.cat !== correct.cat && answerOf(it) !== correctAns;
+  });
+  shuffle(sameCat); shuffle(others);
+
+  var picks = [];
+  var seen = {}; seen[correctAns] = true;
+  function take(arr){
+    for (var i=0;i<arr.length && picks.length<3;i++){
+      var a = answerOf(arr[i]);
+      if (!seen[a]){ seen[a]=true; picks.push(a); }
+    }
+  }
+  take(sameCat);        // same category first
+  take(others);         // then fill from other categories
+  var opts = picks.concat([correctAns]);
+  return shuffle(opts);
+}
+
+function renderQuestion(){
+  var body = document.getElementById('quiz-body');
+  if (!quiz){
+    body.innerHTML =
+      '<div class="quiz-start">' +
+        '<h2>Multiple-choice quiz</h2>' +
+        '<p>Questions are drawn from the full ' + PAGE.termCount + '-term cumulative deck.' +
+        (PAGE.hasNumbers ? ' Numbers use your ' + state.numbers + ' setting.' : '') + '</p>' +
+        '<div class="controls" style="justify-content:center">' +
+          '<div class="ctl"><label>Direction</label><span style="font-weight:600">' +
+            (state.direction==='termToMeaning'?'Term → Meaning':'Meaning → Term') +
+          '</span></div>' +
+        '</div>' +
+        '<button class="btn" style="margin:6px 6px" data-len="10">10 questions</button>' +
+        '<button class="btn" style="margin:6px 6px" data-len="20">20 questions</button>' +
+        '<button class="btn ghost" style="margin:6px 6px" data-len="all">All ' + PAGE.termCount + '</button>' +
+      '</div>';
+    body.querySelectorAll('button[data-len]').forEach(function(b){
+      b.onclick = function(){
+        var v = b.dataset.len; startQuiz(v === 'all' ? 'all' : parseInt(v,10));
+      };
+    });
+    return;
+  }
+  if (quiz.idx >= quiz.questions.length){ renderSummary(); return; }
+
+  var q = quiz.questions[quiz.idx];
+  var opts = buildOptions(q);
+  quiz.answered = false;
+
+  var html =
+    '<div class="qprogress">' +
+      '<span>Question ' + (quiz.idx+1) + ' / ' + quiz.questions.length + '</span>' +
+      '<span class="score">Score: ' + quiz.score + '</span>' +
+    '</div>' +
+    '<div class="qcard">' +
+      '<div class="qcat">' + escapeHtml(q.cat) + '</div>' +
+      '<div class="qprompt">' + escapeHtml(promptOf(q)) + '</div>' +
+      '<div id="opts">';
+  opts.forEach(function(o){
+    html += '<button class="opt" data-val="' + escapeAttr(o) + '">' + escapeHtml(o) + '</button>';
+  });
+  html += '</div><div class="feedback" id="fb"></div></div>';
+  body.innerHTML = html;
+
+  var correctAns = answerOf(q);
+  body.querySelectorAll('.opt').forEach(function(btn){
+    btn.onclick = function(){
+      if (quiz.answered) return;
+      quiz.answered = true;
+      var chosen = btn.dataset.val;
+      var fb = document.getElementById('fb');
+      body.querySelectorAll('.opt').forEach(function(b){
+        b.classList.add('disabled');
+        if (b.dataset.val === correctAns) b.classList.add('correct');
+        else if (b === btn) b.classList.add('wrong');
+      });
+      if (chosen === correctAns){ quiz.score++; fb.textContent='Correct!'; fb.className='feedback ok'; }
+      else { fb.className='feedback no'; fb.innerHTML='Correct answer: <em>' + escapeHtml(correctAns) + '</em>'; }
+      document.querySelector('.score').textContent = 'Score: ' + quiz.score;
+
+      var next = document.createElement('button');
+      next.className = 'btn qnext';
+      next.textContent = (quiz.idx+1 >= quiz.questions.length) ? 'See results' : 'Next question';
+      next.onclick = function(){ quiz.idx++; renderQuestion(); };
+      document.querySelector('.qcard').appendChild(next);
+    };
+  });
+}
+
+function renderSummary(){
+  var pct = Math.round(100 * quiz.score / quiz.questions.length);
+  var body = document.getElementById('quiz-body');
+  body.innerHTML =
+    '<div class="summary">' +
+      '<h2>Quiz complete</h2>' +
+      '<div class="big">' + quiz.score + ' / ' + quiz.questions.length + '</div>' +
+      '<div class="pct">' + pct + '% correct</div>' +
+      '<button class="btn" id="retry">Retry</button>' +
+    '</div>';
+  document.getElementById('retry').onclick = function(){ quiz = null; renderQuestion(); };
+}
+
+/* ============================ tabs =========================== */
+document.getElementById('tab-flash').onclick = function(){ switchTab('flash'); };
+document.getElementById('tab-quiz').onclick  = function(){ switchTab('quiz'); };
+function switchTab(which){
+  var isFlash = which === 'flash';
+  document.getElementById('tab-flash').classList.toggle('active', isFlash);
+  document.getElementById('tab-quiz').classList.toggle('active', !isFlash);
+  document.getElementById('panel-flash').classList.toggle('hidden', !isFlash);
+  document.getElementById('panel-quiz').classList.toggle('hidden', isFlash);
+  if (!isFlash) renderQuestion();
+}
+
+/* reference notes (e.g. Black Belt essay) */
+(function(){
+  if (!PAGE.refNotes || !PAGE.refNotes.length) return;
+  var wrap = document.getElementById('flash-body').parentNode;
+  PAGE.refNotes.forEach(function(n){
+    var div = document.createElement('div');
+    div.className = 'refnote';
+    var i = n.indexOf(':');
+    if (i > 0){ div.innerHTML = '<b>' + escapeHtml(n.slice(0,i)) + '</b>' + escapeHtml(n.slice(i+1)); }
+    else div.textContent = n;
+    wrap.appendChild(div);
+  });
+})();
+
+/* ============================ util =========================== */
+function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function escapeAttr(s){ return escapeHtml(s).replace(/"/g,'&quot;'); }
+
+/* boot */
+rebuildOrder(false);
+renderFlash();
+</script>
+</body>
+</html>
