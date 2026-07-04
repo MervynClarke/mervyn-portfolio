@@ -11,10 +11,15 @@ const tsdSlugs = [
 const nextConfig = {
   reactStrictMode: true,
   async rewrites() {
-    return tsdSlugs.map((slug) => ({
-      source: `/${slug}`,
-      destination: `/tsd/${slug}.html`,
-    }));
+    return [
+      // Tang Soo Do study pages -> /public/tsd/<Slug>.html
+      ...tsdSlugs.map((slug) => ({
+        source: `/${slug}`,
+        destination: `/tsd/${slug}.html`,
+      })),
+      // License Plate Game -> self-contained static file in /public/LPGame/
+      { source: "/LPGame", destination: "/LPGame/index.html" },
+    ];
   },
 };
 
