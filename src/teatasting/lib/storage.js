@@ -98,9 +98,25 @@ const SESSION_COLS = [
   "created_at", "updated_at",
 ];
 
+// Columns backed by Postgres numeric/integer types. Form text inputs default
+// to "" for these; "" is not null, so it must be coerced or Postgres rejects
+// the row ("invalid input syntax for type integer"). "" / non-numeric -> null.
+const NUMERIC_COLS = new Set([
+  "water_temp_c", "leaf_g", "water_ml", "infusion_count",
+  "hui_gan", "cha_qi", "overall_rating",
+]);
+
+function toNumOrNull(v) {
+  if (v === "" || v == null) return null;
+  const n = Number(v);
+  return Number.isFinite(n) ? n : null;
+}
+
 function sessionRow(s) {
   const row = {};
-  for (const c of SESSION_COLS) row[c] = s[c] ?? null;
+  for (const c of SESSION_COLS) {
+    row[c] = NUMERIC_COLS.has(c) ? toNumOrNull(s[c]) : s[c] ?? null;
+  }
   return row;
 }
 
