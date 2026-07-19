@@ -1,0 +1,1136 @@
+{
+  "version": 1,
+  "comment": "Tea flavor taxonomy for /TeaTasting. Three levels: family > branch > note. Every node has a stable `id` — session ratings reference these ids, so NEVER change an id once used; relabel via `label`/`hanzi` only. Add new nodes freely (append). `hanzi` is optional; leave \"\" rather than guessing a translation.",
+  "families": [
+    {
+      "id": "floral",
+      "label": "Floral",
+      "hanzi": "花香",
+      "color": "#C75D93",
+      "branches": [
+        {
+          "id": "floral.strong",
+          "label": "Strong",
+          "hanzi": "",
+          "notes": [
+            {
+              "id": "floral.strong.gardenia",
+              "label": "Gardenia",
+              "hanzi": "梔子花"
+            },
+            {
+              "id": "floral.strong.betel-nut-flower",
+              "label": "Betel nut flower",
+              "hanzi": "檳榔花"
+            },
+            {
+              "id": "floral.strong.ginger-lily",
+              "label": "Ginger lily",
+              "hanzi": "野薑花"
+            },
+            {
+              "id": "floral.strong.rose",
+              "label": "Rose",
+              "hanzi": "玫瑰"
+            },
+            {
+              "id": "floral.strong.orange-jasmine",
+              "label": "Orange jasmine",
+              "hanzi": "七里香"
+            },
+            {
+              "id": "floral.strong.banana-shrub",
+              "label": "Banana shrub",
+              "hanzi": "含笑花"
+            },
+            {
+              "id": "floral.strong.tuberose",
+              "label": "Tuberose",
+              "hanzi": ""
+            },
+            {
+              "id": "floral.strong.pomelo-flower",
+              "label": "Pomelo flower",
+              "hanzi": "柚子花"
+            },
+            {
+              "id": "floral.strong.aglaia-odorata",
+              "label": "Aglaia odorata",
+              "hanzi": "樹蘭"
+            }
+          ]
+        },
+        {
+          "id": "floral.mild",
+          "label": "Mild",
+          "hanzi": "",
+          "notes": [
+            {
+              "id": "floral.mild.camellia",
+              "label": "Camellia",
+              "hanzi": "山茶花"
+            },
+            {
+              "id": "floral.mild.osmanthus",
+              "label": "Osmanthus",
+              "hanzi": "桂花"
+            },
+            {
+              "id": "floral.mild.jasmine",
+              "label": "Jasmine",
+              "hanzi": "茉莉花"
+            },
+            {
+              "id": "floral.mild.orchid",
+              "label": "Orchid",
+              "hanzi": "蘭花"
+            },
+            {
+              "id": "floral.mild.magnolia",
+              "label": "Magnolia",
+              "hanzi": "玉蘭花"
+            }
+          ]
+        }
+      ],
+      "colorDark": "#CE6899"
+    },
+    {
+      "id": "sweet",
+      "label": "Sweet",
+      "hanzi": "甜香",
+      "color": "#C58F1D",
+      "branches": [
+        {
+          "id": "sweet.honey",
+          "label": "Honey",
+          "hanzi": "",
+          "notes": [
+            {
+              "id": "sweet.honey.honey",
+              "label": "Honey",
+              "hanzi": "蜂蜜"
+            }
+          ]
+        },
+        {
+          "id": "sweet.sugary",
+          "label": "Sugary",
+          "hanzi": "",
+          "notes": [
+            {
+              "id": "sweet.sugary.cane-sugar",
+              "label": "Cane sugar",
+              "hanzi": "蔗糖"
+            },
+            {
+              "id": "sweet.sugary.brown-sugar",
+              "label": "Brown sugar",
+              "hanzi": "黑糖"
+            },
+            {
+              "id": "sweet.sugary.caramel",
+              "label": "Caramel",
+              "hanzi": "焦糖"
+            },
+            {
+              "id": "sweet.sugary.maple-syrup",
+              "label": "Maple syrup",
+              "hanzi": "楓糖漿"
+            },
+            {
+              "id": "sweet.sugary.maltose",
+              "label": "Maltose",
+              "hanzi": "麥芽糖"
+            }
+          ]
+        },
+        {
+          "id": "sweet.milky",
+          "label": "Milky",
+          "hanzi": "",
+          "notes": [
+            {
+              "id": "sweet.milky.milk",
+              "label": "Milk",
+              "hanzi": "牛奶"
+            },
+            {
+              "id": "sweet.milky.butter",
+              "label": "Butter",
+              "hanzi": "奶油"
+            },
+            {
+              "id": "sweet.milky.coconut-milk",
+              "label": "Coconut milk",
+              "hanzi": "椰奶"
+            },
+            {
+              "id": "sweet.milky.milk-powder",
+              "label": "Milk powder",
+              "hanzi": "奶粉"
+            }
+          ]
+        }
+      ],
+      "colorDark": "#BA8618"
+    },
+    {
+      "id": "fruity",
+      "label": "Fruity",
+      "hanzi": "果香",
+      "color": "#D8593C",
+      "branches": [
+        {
+          "id": "fruity.green_fruit",
+          "label": "Green fruit",
+          "hanzi": "",
+          "notes": [
+            {
+              "id": "fruity.green_fruit.green-apple",
+              "label": "Green apple",
+              "hanzi": "青蘋果"
+            },
+            {
+              "id": "fruity.green_fruit.pear",
+              "label": "Pear",
+              "hanzi": "梨"
+            },
+            {
+              "id": "fruity.green_fruit.olive",
+              "label": "Olive",
+              "hanzi": "橄欖"
+            },
+            {
+              "id": "fruity.green_fruit.indian-jujube",
+              "label": "Indian jujube",
+              "hanzi": "印度棗"
+            },
+            {
+              "id": "fruity.green_fruit.lemon",
+              "label": "Lemon",
+              "hanzi": "檸檬"
+            },
+            {
+              "id": "fruity.green_fruit.ume-plum",
+              "label": "Ume plum",
+              "hanzi": "梅子"
+            },
+            {
+              "id": "fruity.green_fruit.guava",
+              "label": "Guava",
+              "hanzi": "芭樂"
+            }
+          ]
+        },
+        {
+          "id": "fruity.ripe_fruit",
+          "label": "Ripe fruit",
+          "hanzi": "",
+          "notes": [
+            {
+              "id": "fruity.ripe_fruit.mango",
+              "label": "Mango",
+              "hanzi": "芒果"
+            },
+            {
+              "id": "fruity.ripe_fruit.banana",
+              "label": "Banana",
+              "hanzi": "香蕉"
+            },
+            {
+              "id": "fruity.ripe_fruit.lychee",
+              "label": "Lychee",
+              "hanzi": "荔枝"
+            },
+            {
+              "id": "fruity.ripe_fruit.pineapple",
+              "label": "Pineapple",
+              "hanzi": "鳳梨"
+            },
+            {
+              "id": "fruity.ripe_fruit.melon",
+              "label": "Melon",
+              "hanzi": "甜瓜"
+            },
+            {
+              "id": "fruity.ripe_fruit.plum",
+              "label": "Plum",
+              "hanzi": "李子"
+            },
+            {
+              "id": "fruity.ripe_fruit.custard-apple",
+              "label": "Custard apple",
+              "hanzi": "釋迦"
+            },
+            {
+              "id": "fruity.ripe_fruit.citrus",
+              "label": "Citrus",
+              "hanzi": "柑橘"
+            },
+            {
+              "id": "fruity.ripe_fruit.apricot",
+              "label": "Apricot",
+              "hanzi": "杏桃"
+            },
+            {
+              "id": "fruity.ripe_fruit.bergamot",
+              "label": "Bergamot",
+              "hanzi": "佛手柑"
+            },
+            {
+              "id": "fruity.ripe_fruit.grapefruit",
+              "label": "Grapefruit",
+              "hanzi": "葡萄柚"
+            },
+            {
+              "id": "fruity.ripe_fruit.kumquat",
+              "label": "Kumquat",
+              "hanzi": "金桔"
+            },
+            {
+              "id": "fruity.ripe_fruit.sweet-orange",
+              "label": "Sweet orange",
+              "hanzi": "甜橙"
+            },
+            {
+              "id": "fruity.ripe_fruit.apple",
+              "label": "Apple",
+              "hanzi": "蘋果"
+            },
+            {
+              "id": "fruity.ripe_fruit.blackberry",
+              "label": "Blackberry",
+              "hanzi": "黑莓"
+            },
+            {
+              "id": "fruity.ripe_fruit.strawberry",
+              "label": "Strawberry",
+              "hanzi": "草莓"
+            },
+            {
+              "id": "fruity.ripe_fruit.pomelo",
+              "label": "Pomelo",
+              "hanzi": "柚子"
+            },
+            {
+              "id": "fruity.ripe_fruit.tomato",
+              "label": "Tomato",
+              "hanzi": "番茄"
+            },
+            {
+              "id": "fruity.ripe_fruit.peach",
+              "label": "Peach",
+              "hanzi": "桃子"
+            },
+            {
+              "id": "fruity.ripe_fruit.passionfruit",
+              "label": "Passionfruit",
+              "hanzi": "百香果"
+            }
+          ]
+        },
+        {
+          "id": "fruity.dried_fruit",
+          "label": "Dried fruit",
+          "hanzi": "",
+          "notes": [
+            {
+              "id": "fruity.dried_fruit.dried-guava",
+              "label": "Dried guava",
+              "hanzi": ""
+            },
+            {
+              "id": "fruity.dried_fruit.dried-longan",
+              "label": "Dried longan",
+              "hanzi": "龍眼乾"
+            },
+            {
+              "id": "fruity.dried_fruit.fig",
+              "label": "Fig",
+              "hanzi": "無花果"
+            },
+            {
+              "id": "fruity.dried_fruit.dried-plum",
+              "label": "Dried plum",
+              "hanzi": ""
+            },
+            {
+              "id": "fruity.dried_fruit.raisin",
+              "label": "Raisin",
+              "hanzi": "葡萄乾"
+            },
+            {
+              "id": "fruity.dried_fruit.dried-berries",
+              "label": "Dried berries",
+              "hanzi": ""
+            },
+            {
+              "id": "fruity.dried_fruit.dried-pineapple",
+              "label": "Dried pineapple",
+              "hanzi": ""
+            },
+            {
+              "id": "fruity.dried_fruit.dried-mango",
+              "label": "Dried mango",
+              "hanzi": ""
+            }
+          ]
+        }
+      ],
+      "colorDark": "#DD5F41"
+    },
+    {
+      "id": "roasted",
+      "label": "Roasted",
+      "hanzi": "",
+      "color": "#8C4D12",
+      "branches": [
+        {
+          "id": "roasted.roast",
+          "label": "Roast",
+          "hanzi": "",
+          "notes": [
+            {
+              "id": "roasted.roast.chestnut",
+              "label": "Chestnut",
+              "hanzi": "栗子"
+            },
+            {
+              "id": "roasted.roast.wheat",
+              "label": "Wheat",
+              "hanzi": "小麥"
+            },
+            {
+              "id": "roasted.roast.light-roast",
+              "label": "Light roast",
+              "hanzi": ""
+            },
+            {
+              "id": "roasted.roast.chocolate",
+              "label": "Chocolate",
+              "hanzi": "巧克力"
+            },
+            {
+              "id": "roasted.roast.bread",
+              "label": "Bread",
+              "hanzi": "麵包"
+            },
+            {
+              "id": "roasted.roast.popcorn",
+              "label": "Popcorn",
+              "hanzi": "爆米花"
+            },
+            {
+              "id": "roasted.roast.coffee",
+              "label": "Coffee",
+              "hanzi": "咖啡"
+            },
+            {
+              "id": "roasted.roast.brown-rice",
+              "label": "Brown rice",
+              "hanzi": "糙米"
+            },
+            {
+              "id": "roasted.roast.cookie",
+              "label": "Cookie",
+              "hanzi": ""
+            }
+          ]
+        },
+        {
+          "id": "roasted.smoky",
+          "label": "Smoky",
+          "hanzi": "",
+          "notes": [
+            {
+              "id": "roasted.smoky.crispy-rice",
+              "label": "Crispy rice",
+              "hanzi": "鍋巴"
+            },
+            {
+              "id": "roasted.smoky.smoked",
+              "label": "Smoked",
+              "hanzi": "煙燻"
+            },
+            {
+              "id": "roasted.smoky.plum",
+              "label": "Plum smoke",
+              "hanzi": ""
+            },
+            {
+              "id": "roasted.smoky.coke-smoke",
+              "label": "Coke smoke",
+              "hanzi": ""
+            },
+            {
+              "id": "roasted.smoky.charcoal",
+              "label": "Charcoal",
+              "hanzi": "木炭"
+            },
+            {
+              "id": "roasted.smoky.heavy-roasted-coffee",
+              "label": "Heavy roasted coffee",
+              "hanzi": ""
+            }
+          ]
+        }
+      ],
+      "colorDark": "#A05B1C"
+    },
+    {
+      "id": "nutty",
+      "label": "Nutty",
+      "hanzi": "",
+      "color": "#B29A2F",
+      "branches": [
+        {
+          "id": "nutty.grain_cereal",
+          "label": "Grain & cereal",
+          "hanzi": "",
+          "notes": [
+            {
+              "id": "nutty.grain_cereal.lotus-seed",
+              "label": "Lotus seed",
+              "hanzi": "蓮子"
+            },
+            {
+              "id": "nutty.grain_cereal.adlay",
+              "label": "Adlay",
+              "hanzi": "薏仁"
+            },
+            {
+              "id": "nutty.grain_cereal.wheat",
+              "label": "Wheat",
+              "hanzi": "小麥"
+            },
+            {
+              "id": "nutty.grain_cereal.rice-bran",
+              "label": "Rice bran",
+              "hanzi": "米糠"
+            },
+            {
+              "id": "nutty.grain_cereal.sesame",
+              "label": "Sesame",
+              "hanzi": "芝麻"
+            },
+            {
+              "id": "nutty.grain_cereal.rice",
+              "label": "Rice",
+              "hanzi": "米"
+            },
+            {
+              "id": "nutty.grain_cereal.cassia-seed",
+              "label": "Cassia seed",
+              "hanzi": "決明子"
+            }
+          ]
+        },
+        {
+          "id": "nutty.rhizome",
+          "label": "Rhizome",
+          "hanzi": "",
+          "notes": [
+            {
+              "id": "nutty.rhizome.sweet-potato",
+              "label": "Sweet potato",
+              "hanzi": "地瓜"
+            },
+            {
+              "id": "nutty.rhizome.taro",
+              "label": "Taro",
+              "hanzi": "芋頭"
+            },
+            {
+              "id": "nutty.rhizome.potato",
+              "label": "Potato",
+              "hanzi": "馬鈴薯"
+            }
+          ]
+        },
+        {
+          "id": "nutty.nut",
+          "label": "Nut",
+          "hanzi": "",
+          "notes": [
+            {
+              "id": "nutty.nut.almond",
+              "label": "Almond",
+              "hanzi": "杏仁"
+            },
+            {
+              "id": "nutty.nut.walnut",
+              "label": "Walnut",
+              "hanzi": "核桃"
+            },
+            {
+              "id": "nutty.nut.cashew",
+              "label": "Cashew",
+              "hanzi": "腰果"
+            },
+            {
+              "id": "nutty.nut.pistachio",
+              "label": "Pistachio",
+              "hanzi": "開心果"
+            },
+            {
+              "id": "nutty.nut.hazelnut",
+              "label": "Hazelnut",
+              "hanzi": "榛果"
+            },
+            {
+              "id": "nutty.nut.peanut",
+              "label": "Peanut",
+              "hanzi": "花生"
+            }
+          ]
+        }
+      ],
+      "colorDark": "#A78F29"
+    },
+    {
+      "id": "vegetative",
+      "label": "Vegetative",
+      "hanzi": "",
+      "color": "#4E8C4E",
+      "branches": [
+        {
+          "id": "vegetative.vegetal",
+          "label": "Vegetal",
+          "hanzi": "",
+          "notes": [
+            {
+              "id": "vegetative.vegetal.sweet-potato-leaf",
+              "label": "Sweet potato leaf",
+              "hanzi": "地瓜葉"
+            },
+            {
+              "id": "vegetative.vegetal.water-spinach",
+              "label": "Water spinach",
+              "hanzi": "空心菜"
+            },
+            {
+              "id": "vegetative.vegetal.truffle",
+              "label": "Truffle",
+              "hanzi": "松露"
+            },
+            {
+              "id": "vegetative.vegetal.bean-sprouts",
+              "label": "Bean sprouts",
+              "hanzi": "豆芽"
+            },
+            {
+              "id": "vegetative.vegetal.bamboo-shoot",
+              "label": "Bamboo shoot",
+              "hanzi": "竹筍"
+            },
+            {
+              "id": "vegetative.vegetal.corn",
+              "label": "Corn",
+              "hanzi": "玉米"
+            },
+            {
+              "id": "vegetative.vegetal.water-chestnut",
+              "label": "Water chestnut",
+              "hanzi": "荸薺"
+            },
+            {
+              "id": "vegetative.vegetal.mushroom",
+              "label": "Mushroom",
+              "hanzi": "蘑菇"
+            },
+            {
+              "id": "vegetative.vegetal.black-nightshade",
+              "label": "Black nightshade",
+              "hanzi": ""
+            },
+            {
+              "id": "vegetative.vegetal.cucumber",
+              "label": "Cucumber",
+              "hanzi": "黃瓜"
+            },
+            {
+              "id": "vegetative.vegetal.baby-corn",
+              "label": "Baby corn",
+              "hanzi": "玉米筍"
+            },
+            {
+              "id": "vegetative.vegetal.green-pepper",
+              "label": "Green pepper",
+              "hanzi": "青椒"
+            }
+          ]
+        },
+        {
+          "id": "vegetative.bean",
+          "label": "Bean",
+          "hanzi": "",
+          "notes": [
+            {
+              "id": "vegetative.bean.mung-bean",
+              "label": "Mung bean",
+              "hanzi": "綠豆"
+            },
+            {
+              "id": "vegetative.bean.soy-bean",
+              "label": "Soy bean",
+              "hanzi": "黃豆"
+            },
+            {
+              "id": "vegetative.bean.tofu",
+              "label": "Tofu",
+              "hanzi": "豆腐"
+            },
+            {
+              "id": "vegetative.bean.green-bean",
+              "label": "Green bean",
+              "hanzi": "四季豆"
+            },
+            {
+              "id": "vegetative.bean.pea",
+              "label": "Pea",
+              "hanzi": "豌豆"
+            },
+            {
+              "id": "vegetative.bean.vegetable-protein",
+              "label": "Vegetable protein",
+              "hanzi": ""
+            }
+          ]
+        },
+        {
+          "id": "vegetative.herb",
+          "label": "Herb",
+          "hanzi": "",
+          "notes": [
+            {
+              "id": "vegetative.herb.lavender",
+              "label": "Lavender",
+              "hanzi": "薰衣草"
+            },
+            {
+              "id": "vegetative.herb.rosemary",
+              "label": "Rosemary",
+              "hanzi": "迷迭香"
+            },
+            {
+              "id": "vegetative.herb.chamomile",
+              "label": "Chamomile",
+              "hanzi": "洋甘菊"
+            },
+            {
+              "id": "vegetative.herb.lemongrass",
+              "label": "Lemongrass",
+              "hanzi": "檸檬草"
+            },
+            {
+              "id": "vegetative.herb.chrysanthemum",
+              "label": "Chrysanthemum",
+              "hanzi": "菊花"
+            },
+            {
+              "id": "vegetative.herb.basil",
+              "label": "Basil",
+              "hanzi": "羅勒"
+            },
+            {
+              "id": "vegetative.herb.cuban-oregano",
+              "label": "Cuban oregano",
+              "hanzi": ""
+            },
+            {
+              "id": "vegetative.herb.mint",
+              "label": "Mint",
+              "hanzi": "薄荷"
+            }
+          ]
+        },
+        {
+          "id": "vegetative.grassy",
+          "label": "Grassy",
+          "hanzi": "",
+          "notes": [
+            {
+              "id": "vegetative.grassy.grass-jelly",
+              "label": "Grass jelly",
+              "hanzi": "仙草"
+            },
+            {
+              "id": "vegetative.grassy.hay",
+              "label": "Hay",
+              "hanzi": "乾草"
+            },
+            {
+              "id": "vegetative.grassy.grass",
+              "label": "Grass",
+              "hanzi": "草"
+            },
+            {
+              "id": "vegetative.grassy.bamboo-leaf",
+              "label": "Bamboo leaf",
+              "hanzi": "竹葉"
+            },
+            {
+              "id": "vegetative.grassy.tobacco",
+              "label": "Tobacco",
+              "hanzi": "菸草"
+            }
+          ]
+        }
+      ],
+      "colorDark": "#57984F"
+    },
+    {
+      "id": "other",
+      "label": "Other",
+      "hanzi": "",
+      "color": "#A277C4",
+      "branches": [
+        {
+          "id": "other.wood",
+          "label": "Wood",
+          "hanzi": "",
+          "notes": [
+            {
+              "id": "other.wood.chinese-fir",
+              "label": "Chinese fir",
+              "hanzi": "杉木"
+            },
+            {
+              "id": "other.wood.japanese-cypress",
+              "label": "Japanese cypress",
+              "hanzi": "檜木"
+            },
+            {
+              "id": "other.wood.camphor-wood",
+              "label": "Camphor wood",
+              "hanzi": "樟木"
+            },
+            {
+              "id": "other.wood.bamboo",
+              "label": "Bamboo",
+              "hanzi": "竹"
+            },
+            {
+              "id": "other.wood.pine",
+              "label": "Pine",
+              "hanzi": "松木"
+            },
+            {
+              "id": "other.wood.sandalwood",
+              "label": "Sandalwood",
+              "hanzi": "檀香"
+            },
+            {
+              "id": "other.wood.oak",
+              "label": "Oak",
+              "hanzi": "橡木"
+            },
+            {
+              "id": "other.wood.wet-wood",
+              "label": "Wet wood",
+              "hanzi": ""
+            }
+          ]
+        },
+        {
+          "id": "other.chinese_herb",
+          "label": "Chinese herb",
+          "hanzi": "",
+          "notes": [
+            {
+              "id": "other.chinese_herb.dried-tangerine-peel",
+              "label": "Dried tangerine peel",
+              "hanzi": "陳皮"
+            },
+            {
+              "id": "other.chinese_herb.ginseng",
+              "label": "Ginseng",
+              "hanzi": "人參"
+            },
+            {
+              "id": "other.chinese_herb.licorice",
+              "label": "Licorice",
+              "hanzi": "甘草"
+            },
+            {
+              "id": "other.chinese_herb.dried-hawthorn",
+              "label": "Dried hawthorn",
+              "hanzi": "山楂乾"
+            }
+          ]
+        },
+        {
+          "id": "other.spice",
+          "label": "Spice",
+          "hanzi": "",
+          "notes": [
+            {
+              "id": "other.spice.ginger",
+              "label": "Ginger",
+              "hanzi": "薑"
+            },
+            {
+              "id": "other.spice.cinnamon",
+              "label": "Cinnamon",
+              "hanzi": "肉桂"
+            },
+            {
+              "id": "other.spice.fennel-seed",
+              "label": "Fennel seed",
+              "hanzi": "茴香"
+            },
+            {
+              "id": "other.spice.cardamom",
+              "label": "Cardamom",
+              "hanzi": "荳蔻"
+            },
+            {
+              "id": "other.spice.pepper",
+              "label": "Pepper",
+              "hanzi": "胡椒"
+            },
+            {
+              "id": "other.spice.clove",
+              "label": "Clove",
+              "hanzi": "丁香"
+            }
+          ]
+        },
+        {
+          "id": "other.ferment",
+          "label": "Ferment",
+          "hanzi": "",
+          "notes": [
+            {
+              "id": "other.ferment.lactic-acid",
+              "label": "Lactic acid",
+              "hanzi": ""
+            },
+            {
+              "id": "other.ferment.pickled-cabbage",
+              "label": "Pickled cabbage",
+              "hanzi": "酸菜"
+            },
+            {
+              "id": "other.ferment.fermented-rice",
+              "label": "Fermented rice",
+              "hanzi": "酒釀"
+            },
+            {
+              "id": "other.ferment.soy-sauce",
+              "label": "Soy sauce",
+              "hanzi": "醬油"
+            },
+            {
+              "id": "other.ferment.red-wine",
+              "label": "Red wine",
+              "hanzi": "紅酒"
+            },
+            {
+              "id": "other.ferment.miso",
+              "label": "Miso",
+              "hanzi": "味噌"
+            },
+            {
+              "id": "other.ferment.cheese",
+              "label": "Cheese",
+              "hanzi": "起司"
+            }
+          ]
+        },
+        {
+          "id": "other.stale",
+          "label": "Stale",
+          "hanzi": "",
+          "notes": [
+            {
+              "id": "other.stale.soil",
+              "label": "Soil",
+              "hanzi": "土壤"
+            },
+            {
+              "id": "other.stale.sludge",
+              "label": "Sludge",
+              "hanzi": ""
+            },
+            {
+              "id": "other.stale.rancid-oil",
+              "label": "Rancid oil",
+              "hanzi": ""
+            },
+            {
+              "id": "other.stale.mold",
+              "label": "Mold",
+              "hanzi": "霉味"
+            }
+          ]
+        },
+        {
+          "id": "other.sea",
+          "label": "Sea",
+          "hanzi": "",
+          "notes": [
+            {
+              "id": "other.sea.kelp",
+              "label": "Kelp",
+              "hanzi": "海帶"
+            },
+            {
+              "id": "other.sea.clam",
+              "label": "Clam",
+              "hanzi": "蛤蜊"
+            },
+            {
+              "id": "other.sea.fish",
+              "label": "Fish",
+              "hanzi": "魚"
+            },
+            {
+              "id": "other.sea.bonito-flake",
+              "label": "Bonito flake",
+              "hanzi": "柴魚片"
+            }
+          ]
+        },
+        {
+          "id": "other.chemical",
+          "label": "Chemical",
+          "hanzi": "",
+          "notes": [
+            {
+              "id": "other.chemical.plastic",
+              "label": "Plastic",
+              "hanzi": "塑膠"
+            },
+            {
+              "id": "other.chemical.rubber",
+              "label": "Rubber",
+              "hanzi": "橡膠"
+            },
+            {
+              "id": "other.chemical.leather",
+              "label": "Leather",
+              "hanzi": "皮革"
+            },
+            {
+              "id": "other.chemical.medicinal",
+              "label": "Medicinal",
+              "hanzi": "藥味"
+            },
+            {
+              "id": "other.chemical.metal",
+              "label": "Metal",
+              "hanzi": "金屬"
+            }
+          ]
+        }
+      ],
+      "colorDark": "#A480C6"
+    },
+    {
+      "id": "mineral",
+      "label": "Mineral",
+      "hanzi": "",
+      "color": "#256FAD",
+      "branches": [
+        {
+          "id": "mineral.mineral",
+          "label": "Mineral",
+          "hanzi": "",
+          "notes": [
+            {
+              "id": "mineral.mineral.wet-stone",
+              "label": "Wet stone",
+              "hanzi": ""
+            },
+            {
+              "id": "mineral.mineral.flint",
+              "label": "Flint",
+              "hanzi": ""
+            },
+            {
+              "id": "mineral.mineral.spring-water",
+              "label": "Spring water",
+              "hanzi": "泉水"
+            },
+            {
+              "id": "mineral.mineral.rock-rhyme",
+              "label": "Rock rhyme (yan yun)",
+              "hanzi": "岩韻"
+            },
+            {
+              "id": "mineral.mineral.salinity",
+              "label": "Salinity",
+              "hanzi": ""
+            }
+          ]
+        }
+      ],
+      "colorDark": "#2F6FA6"
+    },
+    {
+      "id": "earth_aged",
+      "label": "Earth & Aged",
+      "hanzi": "",
+      "color": "#93472B",
+      "branches": [
+        {
+          "id": "earth_aged.earthy",
+          "label": "Earthy",
+          "hanzi": "",
+          "notes": [
+            {
+              "id": "earth_aged.earthy.wet-forest-floor",
+              "label": "Wet forest floor",
+              "hanzi": ""
+            },
+            {
+              "id": "earth_aged.earthy.dry-leaf-litter",
+              "label": "Dry leaf litter",
+              "hanzi": ""
+            },
+            {
+              "id": "earth_aged.earthy.moss",
+              "label": "Moss",
+              "hanzi": "苔蘚"
+            },
+            {
+              "id": "earth_aged.earthy.geosmin",
+              "label": "Geosmin",
+              "hanzi": ""
+            }
+          ]
+        },
+        {
+          "id": "earth_aged.fermented",
+          "label": "Aged & fermented",
+          "hanzi": "",
+          "notes": [
+            {
+              "id": "earth_aged.fermented.aged-puer",
+              "label": "Aged pu'er",
+              "hanzi": "老普洱"
+            },
+            {
+              "id": "earth_aged.fermented.medicine-chest",
+              "label": "Medicine chest",
+              "hanzi": ""
+            },
+            {
+              "id": "earth_aged.fermented.dried-mushroom",
+              "label": "Dried mushroom",
+              "hanzi": "乾香菇"
+            },
+            {
+              "id": "earth_aged.fermented.old-books-paper",
+              "label": "Old books / paper",
+              "hanzi": ""
+            }
+          ]
+        }
+      ],
+      "colorDark": "#A05334"
+    }
+  ]
+}

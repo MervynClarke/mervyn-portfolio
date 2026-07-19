@@ -70,6 +70,9 @@ export default function Navbar() {
   // The /justwork app has its own minimal top bar — hide the global navbar too.
   if (pathname?.startsWith("/justwork")) return null;
 
+  // The /TeaTasting app has its own header — hide the global navbar too.
+  if (pathname?.toLowerCase().startsWith("/teatasting")) return null;
+
   const handleNavClick = (href: string) => {
     setMobileOpen(false);
 

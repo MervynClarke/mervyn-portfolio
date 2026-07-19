@@ -144,3 +144,70 @@
   font-variant-numeric: tabular-nums;
   font-feature-settings: 'tnum';
 }
+
+/* ── Tea Tasting app (/TeaTasting) ───────────────────────────
+   Flavor-wheel tasting log. Same scoped-token approach as `.jump-app`:
+   surfaces respond to the site-wide `.dark` class and never leak elsewhere.
+   Keep these values in sync with THEME in src/teatasting/lib/theme.js —
+   the SVG wheels and PNG/PDF exporters use the concrete hex values. */
+.teatasting-app {
+  /* Light: warm parchment, white cards. */
+  --bg: #f5f1e8;
+  --surface: #ffffff;
+  --surface-2: #ece5d6;
+  --line: #ddd3bd;
+  --text: #2c2c2c;
+  --muted: #6b6455;
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+.dark .teatasting-app {
+  /* Dark: near-black forest green. */
+  --bg: #0a120d;
+  --surface: #101c15;
+  --surface-2: #17281e;
+  --line: #23372b;
+  --text: #faf7f2;
+  --muted: #9aa89d;
+}
+
+/* Range slider (mouthfeel bipolar sliders) with a visible centered track. */
+.teatasting-app .tt-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 9999px;
+  background: linear-gradient(
+    to right,
+    var(--line) 0%,
+    var(--line) 48%,
+    var(--muted) 48%,
+    var(--muted) 52%,
+    var(--line) 52%,
+    var(--line) 100%
+  );
+  outline-offset: 4px;
+  min-height: 0;
+  margin: 19px 0; /* pads the 6px track to a 44px touch target */
+}
+.teatasting-app .tt-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 9999px;
+  background: #c4883a;
+  border: 3px solid var(--surface);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.25);
+  cursor: pointer;
+}
+.teatasting-app .tt-range::-moz-range-thumb {
+  width: 26px;
+  height: 26px;
+  border-radius: 9999px;
+  background: #c4883a;
+  border: 3px solid var(--surface);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.25);
+  cursor: pointer;
+}

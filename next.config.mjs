@@ -12,6 +12,10 @@ const nextConfig = {
   reactStrictMode: true,
   async rewrites() {
     return [
+      // Forgiving casing for the Tea Tasting app (canonical route: /TeaTasting).
+      // NOTE: a redirect here would loop — Next matches sources case-insensitively,
+      // so "/teatasting" also matches "/TeaTasting". An afterFiles rewrite is safe.
+      { source: "/teatasting", destination: "/TeaTasting" },
       // Tang Soo Do study pages -> /public/tsd/<Slug>.html
       ...tsdSlugs.map((slug) => ({
         source: `/${slug}`,
