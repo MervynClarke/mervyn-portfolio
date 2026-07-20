@@ -7,7 +7,7 @@ import { TEA_TYPES } from "./SessionForm";
 import { Button, Select, TextInput } from "./ui";
 import { exportBulkCsv, shareOrDownload } from "../lib/exports";
 
-const METHOD_OPTIONS = ["", "gongfu", "western", "grandpa", "cold_brew", "boiled", "other"];
+const METHOD_OPTIONS = ["", "gongfu", "western", "grandpa", "cold_brew", "boiled", "bowl_tea", "whisked", "other"];
 
 // All note labels for the note-filter datalist.
 const NOTE_OPTIONS = [];
@@ -155,6 +155,7 @@ export default function HistoryView({ sessions, teas, onOpen, onOpenTea, onCompa
               </th>
               <th className="px-3 py-2.5">Type</th>
               <th className="px-3 py-2.5">Method</th>
+              <th className="px-3 py-2.5">Vendor</th>
               <th className="px-3 py-2.5">Ratio</th>
               <th className="px-3 py-2.5">
                 <button type="button" onClick={() => toggleSort("rating")}>★{arrow("rating")}</button>
@@ -196,6 +197,7 @@ export default function HistoryView({ sessions, teas, onOpen, onOpenTea, onCompa
                 </td>
                 <td className="px-3 py-3 text-muted">{tea.type || "—"}</td>
                 <td className="px-3 py-3 text-muted">{s.method || "—"}</td>
+                <td className="px-3 py-3 text-muted">{tea.vendor || "—"}</td>
                 <td className="px-3 py-3 font-mono text-xs">{ratio(s)}</td>
                 <td className="px-3 py-3 text-tea-amber dark:text-tea-amber-light whitespace-nowrap">
                   {s.overall_rating ? "★".repeat(s.overall_rating) : "—"}
@@ -207,7 +209,7 @@ export default function HistoryView({ sessions, teas, onOpen, onOpenTea, onCompa
             ))}
             {!rows.length && (
               <tr>
-                <td colSpan={selectMode ? 8 : 7} className="px-3 py-8 text-center text-muted">
+                <td colSpan={selectMode ? 9 : 8} className="px-3 py-8 text-center text-muted">
                   {sessions.length ? "Nothing matches these filters." : "No sessions yet — log your first tea."}
                 </td>
               </tr>

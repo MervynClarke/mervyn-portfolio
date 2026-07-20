@@ -21,9 +21,11 @@ const METHODS = [
   { value: "grandpa", label: "Grandpa" },
   { value: "cold_brew", label: "Cold brew" },
   { value: "boiled", label: "Boiled 煮茶" },
+  { value: "bowl_tea", label: "Bowl tea" },
+  { value: "whisked", label: "Whisked" },
   { value: "other", label: "Other" },
 ];
-const VESSELS = ["gaiwan", "yixing", "porcelain", "glass", "mug", "thermos", "other"];
+const VESSELS = ["gaiwan", "yixing", "porcelain", "glass", "mug", "thermos", "bowl", "other"];
 export const LIQUOR_COLORS = [
   { value: "#E8E6A6", label: "pale green-yellow" },
   { value: "#E3CF6B", label: "yellow" },
