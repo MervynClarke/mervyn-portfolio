@@ -16,6 +16,8 @@ const nextConfig = {
       // NOTE: a redirect here would loop — Next matches sources case-insensitively,
       // so "/teatasting" also matches "/TeaTasting". An afterFiles rewrite is safe.
       { source: "/teatasting", destination: "/TeaTasting" },
+      // Same forgiving-casing rewrite for Yoga Tracker (canonical: /YogaTracker).
+      { source: "/yogatracker", destination: "/YogaTracker" },
       // Tang Soo Do study pages -> /public/tsd/<Slug>.html
       ...tsdSlugs.map((slug) => ({
         source: `/${slug}`,

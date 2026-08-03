@@ -73,6 +73,9 @@ export default function Navbar() {
   // The /TeaTasting app has its own header — hide the global navbar too.
   if (pathname?.toLowerCase().startsWith("/teatasting")) return null;
 
+  // Yoga Tracker has its own header (src/yogatracker/YogaTrackerApp.jsx).
+  if (pathname?.toLowerCase().startsWith("/yogatracker")) return null;
+
   const handleNavClick = (href: string) => {
     setMobileOpen(false);
 

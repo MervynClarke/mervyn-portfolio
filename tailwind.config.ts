@@ -31,6 +31,16 @@ const config: Config = {
         // Semantic accents — "coral" = work (green = GO), "teal" = recovery (gold).
         coral: { DEFAULT: "#34D399", soft: "#5FE0AD", deep: "#10B981" },
         teal:  { DEFAULT: "#D99A3C", soft: "#E6B25A", deep: "#BE8125" },
+
+        // ── Yoga Tracker app tokens ───────────────────────────────
+        // Shares the bg/surface/line/text/muted vars above (scoped to
+        // `.yogatracker-app` in globals.css). Sage accent; `tea-amber`
+        // doubles as the goal-reached / attention colour.
+        // `<alpha-value>` keeps bg-yoga-sage/15 working while the channels
+        // themselves flip between light and dark.
+        "yoga-sage":       "rgb(var(--yoga-sage-rgb) / <alpha-value>)",
+        "yoga-sage-light": "#7FB184",
+        "yoga-sage-deep":  "#3E6241",
       },
       fontFamily: {
         display: ["var(--font-playfair)", "Georgia", "serif"],

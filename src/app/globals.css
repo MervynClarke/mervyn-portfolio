@@ -211,3 +211,35 @@
   box-shadow: 0 1px 3px rgb(0 0 0 / 0.25);
   cursor: pointer;
 }
+
+/* ── Yoga Tracker (/YogaTracker) ────────────────────────────────────────
+   Same surfaces as Tea Tasting — warm parchment in light, near-black forest
+   green in dark — so the two tools read as one family. The accent moves from
+   amber to sage.
+
+   The sage is held as bare RGB channels rather than a hex so the Tailwind
+   token can be `rgb(var(--yoga-sage-rgb) / <alpha-value>)`: that is what makes
+   `bg-yoga-sage/15` (chips) and `/25 /45 /70` (heatmap levels) produce real
+   translucency *and* still flip with the theme. A `var(--x)` holding a hex
+   would silently drop every opacity modifier. */
+.yogatracker-app {
+  --bg: #f5f1e8;
+  --surface: #ffffff;
+  --surface-2: #ece5d6;
+  --line: #ddd3bd;
+  --text: #2c2c2c;
+  --muted: #6b6455;
+  --yoga-sage-rgb: 79 122 82;
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+.dark .yogatracker-app {
+  --bg: #0a120d;
+  --surface: #101c15;
+  --surface-2: #17281e;
+  --line: #23372b;
+  --text: #faf7f2;
+  --muted: #9aa89d;
+  --yoga-sage-rgb: 127 177 132;
+}
